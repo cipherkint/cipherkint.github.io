@@ -406,7 +406,7 @@
 <script type="math/tex; mode=display">
 \forall a \forall b \exists c \forall x(x\in c \leftrightarrow x=a \vee x=b)</script><p><strong>4.并集公理</strong>：产生并集的概念</p>
 <script type="math/tex; mode=display">
-\forall X\exists Y \forall u(u\in Y \leftrightarrow \exist z(z\in X \wedge u \in z))</script><p>定义1：对于这样的$Y$，称它为$X$的并，记为$\bigcup X$。定义$X \cup Y=\bigcup \{X,Y\}$</p>
+\forall X\exists Y \forall u(u\in Y \leftrightarrow \exists z(z\in X \wedge u \in z))</script><p>定义1：对于这样的$Y$，称它为$X$的并，记为$\bigcup X$。定义$X \cup Y=\bigcup \{X,Y\}$</p>
 <p>定义2：子集——$X$的元素都是$Y$的元素——$X\subseteq Y$</p>
 <p>真子集——$X\subseteq Y$并且$X\ne Y$——$X\subset Y$</p>
 <blockquote>
@@ -450,7 +450,7 @@
 </blockquote>
 <p><strong>9.选择公理</strong>：承认形式系统中某种无限次操作的合理性，进而断言某种“不可构造的存在”的合法性，但也否定了所有的“非良序集”</p>
 <script type="math/tex; mode=display">
-\forall X[\emptyset \notin X\wedge \forall x\in X \forall y\in X(x\cap y=\empty)\rightarrow \exists S \forall x\in X\exists!y(S\cap x =\{y\})]</script><p>$ZF$：0-8组成</p>
+\forall X[\emptyset \notin X\wedge \forall x\in X \forall y\in X(x\cap y=\emptyset)\rightarrow \exists S \forall x\in X\exists!y(S\cap x =\{y\})]</script><p>$ZF$：0-8组成</p>
 <p>$ZFC$：0-9组成</p>
 <h3 id="习题"><a href="#习题" class="headerlink" title="习题"></a>习题</h3><p><em>好多题，懒得都做，就选了后面几题做</em></p>
 <p><strong>1、如果$X$是集合。定义$-X=\{x|x\notin X\}$，证明$-X$不是集合。</strong></p>
