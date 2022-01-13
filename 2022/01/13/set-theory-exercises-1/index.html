@@ -378,7 +378,7 @@
 <p>一致：一个理论是一致的当且仅当没有语句会使得从理论中能同时得到对该语句与该语句的非的证明</p>
 <h3 id="1-3-公理"><a href="#1-3-公理" class="headerlink" title="1.3 公理"></a>1.3 公理</h3><p><strong>0.存在公理</strong>：本体论的承诺——我们谈论的世界不是虚无的 </p>
 <script type="math/tex; mode=display">
-\exist x(x=x)</script><hr>
+\exists x(x=x)</script><hr>
 <p><strong>1.外延公理</strong>：两个有相同元素的集合相等——集合是由其元素决定的</p>
 <script type="math/tex; mode=display">
 \forall X\forall Y\forall u(u\in X \leftrightarrow u\in Y)\rightarrow X=Y\\
@@ -386,7 +386,7 @@
 \forall u(u\in X \leftrightarrow u\in Y)\leftrightarrow X=Y</script><p><em>以上为唯一性公理，保证了下一组公理里断言存在的集合的唯一性</em></p>
 <p><strong>2.分离公理模式</strong>（概括公理、子集公理）：给（像上文所述的）“概括规则”一个限制，使集合不能通过“概括规则”独立定义，而是必须从已经存在的集合中被分离出来。（从而排除”所有集合的集合“这种概念）</p>
 <script type="math/tex; mode=display">
-\forall X \exist Y \forall u(u\in Y \leftrightarrow u\in X \and \varphi(u))</script><p>定义1：$\{x|x \ne x\}$是集合，并且根据外延公理，它是唯一的，称为空集，记作$\emptyset$           </p>
+\forall X \exists Y \forall u(u\in Y \leftrightarrow u\in X \wedge \varphi(u))</script><p>定义1：$\{x|x \ne x\}$是集合，并且根据外延公理，它是唯一的，称为空集，记作$\emptyset$           </p>
 <blockquote>
 <p><em>练习：证明集合</em>$\{x|x\ne x\}$<em>是唯一的</em></p>
 <p>假设存在两个集合$A$与$B$满足$\{x|x\ne x\}$</p>
@@ -404,9 +404,9 @@
 </blockquote>
 <p><strong>3.对集公理</strong>：对任意a和b，存在一个集合只以a和b为元素</p>
 <script type="math/tex; mode=display">
-\forall a \forall b \exist c \forall x(x\in c \leftrightarrow x=a \or x=b)</script><p><strong>4.并集公理</strong>：产生并集的概念</p>
+\forall a \forall b \exists c \forall x(x\in c \leftrightarrow x=a \vee x=b)</script><p><strong>4.并集公理</strong>：产生并集的概念</p>
 <script type="math/tex; mode=display">
-\forall X\exist Y \forall u(u\in Y \leftrightarrow \exist z(z\in X \and u \in z))</script><p>定义1：对于这样的$Y$，称它为$X$的并，记为$\bigcup X$。定义$X \cup Y=\bigcup \{X,Y\}$</p>
+\forall X\exists Y \forall u(u\in Y \leftrightarrow \exist z(z\in X \wedge u \in z))</script><p>定义1：对于这样的$Y$，称它为$X$的并，记为$\bigcup X$。定义$X \cup Y=\bigcup \{X,Y\}$</p>
 <p>定义2：子集——$X$的元素都是$Y$的元素——$X\subseteq Y$</p>
 <p>真子集——$X\subseteq Y$并且$X\ne Y$——$X\subset Y$</p>
 <blockquote>
@@ -418,16 +418,16 @@
 </blockquote>
 <p><strong>5.幂集公理</strong>：以一种更快的速度产生新集合</p>
 <script type="math/tex; mode=display">
-\forall X\exist Y\forall u(u\in Y \leftrightarrow u\subseteq X)</script><p>这种集合Y称为X的幂集，记作$\mathcal{P}(X)$ </p>
+\forall X\exists Y\forall u(u\in Y \leftrightarrow u\subseteq X)</script><p>这种集合Y称为X的幂集，记作$\mathcal{P}(X)$ </p>
 <hr>
 <p>插曲：我们现在已经可以用空集定义$\emptyset$，$\{\emptyset\}$，$\{ \emptyset \{\emptyset\}\}$……，记为0，1，2……（自然数），那自然数集怎么定义？</p>
 <hr>
 <p>定义：对任何集合$x$，集合$x\cup\{x\}$称为$x$的后继，记为$S(x)$或者$x^+$</p>
 <p><strong>6.无穷公理</strong>：肯定无穷集合存在</p>
 <script type="math/tex; mode=display">
-\exist X[\emptyset\in X\and \forall x(x\in X \rightarrow S(x)\in X)]</script><p><strong>7.基础公理</strong>（正则公理）：集合的元素都具有最小性质，排除了所有的“非基础集”，也就是“深不见底”的“集合”</p>
+\exists X[\emptyset\in X\wedge \forall x(x\in X \rightarrow S(x)\in X)]</script><p><strong>7.基础公理</strong>（正则公理）：集合的元素都具有最小性质，排除了所有的“非基础集”，也就是“深不见底”的“集合”</p>
 <script type="math/tex; mode=display">
-\forall x(x\ne \emptyset \rightarrow \exist y(y\in x\and x \cap y=\emptyset))</script><p>定理：任何集合x都不属于自身</p>
+\forall x(x\ne \emptyset \rightarrow \exists y(y\in x\wedge x \cap y=\emptyset))</script><p>定理：任何集合x都不属于自身</p>
 <blockquote>
 <p>练习：证明不存在集合$\{x_0,x_1,\dots,x_n,x_{n+1},\dots\}$其中对任意$n$，$x_{n+1}\in x_n$。这样的集合称为无穷下降链，基础公理确保不存在无穷下降链</p>
 <p>假设存在集合$X=\{x_0,x_1,\dots,x_n,x_{n+1},\dots\}$对任意$n$，$x_{n+1}\in x_n$</p>
@@ -440,7 +440,7 @@
 <p>即：$\exists !x\psi(x)$表示有唯一的x具有性质$\psi$</p>
 <p><strong>8.替换公理模式</strong>：由映射关系建立集合——任何集合在一个函数下的像仍然是一个集合</p>
 <script type="math/tex; mode=display">
-\forall A\forall x\in A\exist !y\psi(x,y)\rightarrow \exist B\forall x\in A\exist y\in B\psi(x,y)</script><blockquote>
+\forall A\forall x\in A\exists !y\psi(x,y)\rightarrow \exists B\forall x\in A\exists y\in B\psi(x,y)</script><blockquote>
 <p>练习：证明$\{\{0\},\{1\},\{2\},\dots\}$是集合</p>
 <p>由存在公理、分离公理、对集公理、无穷公理易得$\{0,1,2\dots\}$是集合</p>
 <p>构建公式$\psi(x,y):y=\{x\}$</p>
@@ -450,7 +450,7 @@
 </blockquote>
 <p><strong>9.选择公理</strong>：承认形式系统中某种无限次操作的合理性，进而断言某种“不可构造的存在”的合法性，但也否定了所有的“非良序集”</p>
 <script type="math/tex; mode=display">
-\forall X[\empty \notin X\and \forall x\in X \forall y\in X(x\cap y=\empty)\rightarrow \exist S \forall x\in X\exist!y(S\cap x =\{y\})]</script><p>$ZF$：0-8组成</p>
+\forall X[\emptyset \notin X\wedge \forall x\in X \forall y\in X(x\cap y=\empty)\rightarrow \exists S \forall x\in X\exists!y(S\cap x =\{y\})]</script><p>$ZF$：0-8组成</p>
 <p>$ZFC$：0-9组成</p>
 <h3 id="习题"><a href="#习题" class="headerlink" title="习题"></a>习题</h3><p><em>好多题，懒得都做，就选了后面几题做</em></p>
 <p><strong>1、如果$X$是集合。定义$-X=\{x|x\notin X\}$，证明$-X$不是集合。</strong></p>
