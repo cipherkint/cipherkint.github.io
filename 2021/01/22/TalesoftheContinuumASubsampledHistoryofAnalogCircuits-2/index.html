@@ -1,0 +1,1019 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="翻译：关于连续性的故事——模拟电路的*次采样*历史(2), Qfwfq&#39;s Blog">
+    <meta name="description" content="
+
+翻译：关于连续性的故事——模拟电路的*次采样*历史(2)基准电压运算放大器可能是典型的模拟电路，但它肯定不是唯一重要的电路。基准电压电路也很重要——仅仅为了将电源和偏置电压设置为理想值，我们就需要参考电压——可以说所有集成电路都需要参考">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>翻译：关于连续性的故事——模拟电路的*次采样*历史(2) | Qfwfq&#39;s Blog</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Qfwfq&#39;s Blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Qfwfq&#39;s Blog</div>
+        <div class="logo-desc">
+            
+            Present Day, Present Time.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.png')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">翻译：关于连续性的故事——模拟电路的*次采样*历史(2)</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #81A69A;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #81A69A;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Translation/">
+                                <span class="chip bg-color">Translation</span>
+                            </a>
+                        
+                            <a href="/tags/Analog-Circuits/">
+                                <span class="chip bg-color">Analog-Circuits</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-01-22
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <meta name="referrer" content="no-referrer"/>
+
+<h1 id="翻译：关于连续性的故事——模拟电路的-次采样-历史-2"><a href="#翻译：关于连续性的故事——模拟电路的-次采样-历史-2" class="headerlink" title="翻译：关于连续性的故事——模拟电路的*次采样*历史(2)"></a>翻译：关于连续性的故事——模拟电路的*次采样*历史(2)</h1><h2 id="基准电压"><a href="#基准电压" class="headerlink" title="基准电压"></a>基准电压</h2><p>运算放大器可能是典型的模拟电路，但它肯定不是唯一重要的电路。基准电压电路也很重要——仅仅为了将电源和偏置电压设置为理想值，我们就需要参考电压——可以说所有集成电路都需要参考电压电路。数据转换器（将模拟信号转换为数字信号）从根本上也需要它们：因为数据转换器需要让比特和电压之间的映射有绝对的定量意义。</p>
+<p>有点讽刺的是，数字电路地位的上升竟然刺激了模拟电路的发展。在20世纪60年代末，随着数字革命的爆发，对于用于为TTL集成电路里日新月异的 “门电路”供电的稳压+5V电源的需求变得越来越迫切。Widlar预见到了对一个简单的、无需调整的稳压器芯片的需求，并开始着手设计它。</p>
+<p>当然，主要问题是如何实现基本的电压基准。传统的替代方案，如齐纳二极管，在某种程度上提供了”基准”电压，但是，从物理上说，这个电压具体是多少是不可控的。而且，宽松的容差排除了在不能选择成本过高的元件的情况下实现无修调（trim-free）电路（注：这句话无论怎么看都看不明白）。二极管”约0.6V”的正向压降可能更可靠一些（当然目前只是“可能”），但它较大的负温度系数（约0.3%/℃）限制了有用的温度范围。</p>
+<p>与大多数模拟电路工程师一样，Widlar非常了解二极管电压有较大的负温度系数。然而，他并没有被它所束缚，而是将这种特点作为他的设计的起点。根据经验，二极管的温度每升高一摄氏度，正向电压就会下降2mV左右。二极管的温度系数与通过它的电流有关（较高的电流会降低其温度系数），但对于一个给定的电流值，温度系数在极宽的温度范围内几乎是不变的。这种类型的行为被称为CTAT，意思是对绝对温度的补充（complementary to absolute temperature）。比这种近线性行为更好的是，可以推算出，绝对零度的正向电压值对所有二极管都是一样的，并且约等于带隙电压。一个可以直接追溯到可靠的物理常数（在这个例子中是带隙）的电压的出现，使无修调（trim-free）的电压基准成为可能。</p>
+<p>为了利用这些观察结果来制作电压基准，必须将PTAT（proportional to absolute temperature，与绝对温度成正比）的电压加入到CTAT的电压中。我们已经见证过Widlar对PTAT电流源的熟练运用——它们是$LM101A$中偏置电路的一部分。制作电压基准的具体过程不用说得太详细，想想看：如果你把一条上升的线加到一条下降的线上，其总和仍然是一条线。如果这两条线的斜率相等且相反，总和将是一条横线——一个常数。如果电压之和达到带隙电压，这种“平坦”的情况就会出现，对于硅来说，带隙电压大约是1.2V（我们在此讨论中忽略了在设计一个好的带隙参考电压时必须考虑的二阶效应）。</p>
+<p>Widlar将这个思路翻译成了电路形式，见下图。</p>
+<p><img src="https://i0.hdslb.com/bfs/album/b59c78fa6abf3341e785dfefef4de3337989fd32.png" alt="Widlar带隙电压基准电路（简化）"></p>
+<p>一个Widlar电流源（Q1和Q2）在R3上建立了一个电压，电压的值是两个结点电压的差值。（这样的电压是PTAT所以）相关的电流是PTAT，跟我们所期望的一样，但我们需要建立一些比例来获得正确的斜率。在发射极和集电极电流基本相等的情况下，R2上的电压也是简单的PTAT，但要按R2/R3的比例缩放。这个电压直接加到Q3的基极-发射极电压上，因此输出参考电压是CTAT分量（Q3上的$V_{BE}$）和PTAT分量（按比例的$\Delta V_{BE}$）之和。当R2/R3的比率被选择为一个在任何温度下都产生大约1.2V的输出电压的值时，输出电压在所有温度下都会非常接近该值。这种“带隙电池”是Widlar的$LM109$的核心，它是第一个三端无修调的稳压集成电路。进入的电压可能是不同的，但出来的是恒定的5V。此外，$LM109$还提供电流限制和热过载保护，使该器件既稳定又易于使用。</p>
+<p>$LM109$的迅速普及说明了Widlar对带隙基准电路的特殊实现方法的高明之处（也说明了他的营销洞察力）。然而，Analog Devices公司的Paul Brokaw明白，带隙的全部潜力仍有待开发。Brokaw开始系统地研究可能会降低器件性能的效应。在双极晶体管中，集电极电流和基极-发射极电压从根本上通过可靠的物理方式联系在一起，但Widlar的稳压器依赖于发射极和集电极电流之间的次级联系，使其容易受到二阶误差的影响。图7的简化示意图显示，非零基极电流是这种误差的一个重要来源。</p>
+<p>在很短的时间内，Brokaw设计了一个不存在这些问题的带隙基准电路的替代实施方案（见下图）。</p>
+<p><img src="https://i0.hdslb.com/bfs/album/c66e9bd2c4a87c4cfa52cfe34cc960a533f1e748.png" alt="Brokaw的带隙基准电路"></p>
+<p>这个优雅的电路避免了许多可能会降低Widlar的稳压器性能的二阶效应。为简单起见，假设集电极负载电阻RL1和RL2是相等的。包含通用运放的负反馈回路保证了集电极电压的相等，因此也保证了集电极电流的相等。然而，这两个晶体管的发射极面积不相等，所以电流密度也不相等。继而，不同的密度保证了基极-发射极电压间存在一个标定的差值。这个差值直接反映在R2上，给了我们一个PTAT电压，以及通过电阻给了我们一个PTAT电流（因此而通过Q2）。</p>
+<p>通过Q1和Q2的电流相等并且是PTAT，因此通过R1的电流也是PTAT。通过对电路的观察，可以清楚地看出，Brokaw巧妙地安排了共基连接处的电压，使其可以直接表达为PTAT项（R1上的电压）和CTAT项（Q1的发射极-基极电压）的总和。通过适当地调整R2和R1的比例，可以使带隙电压出现在基极连接处。如果需要，从运算放大器到基极的反馈可以包括所示的分压器，从而允许整体输出电压是带隙电压的倍数（此处为1+h）。Analog Devices公司的$AD580\space 2.5V$基准电路是第一个使用Brokaw的带隙基准电路的产品，其最高精度的版本的总误差（包括漂移）约为0.5%，满足军品要求。</p>
+<h2 id="有史以来最畅销的集成电路"><a href="#有史以来最畅销的集成电路" class="headerlink" title="有史以来最畅销的集成电路"></a>有史以来最畅销的集成电路</h2><p>几乎每一个电子工程师或业余爱好者都在某个时候遇到过555定时器集成电路，要么是在实验课上，要么是摸鱼的时候玩过。然而，他们中大概很少有人知道是谁设计了它，以及它是如何诞生的。比这更鲜为人知的事实是，到目前为止，555仍然是历史上最畅销的集成电路，在其问世超过35年后，每年仍有大约10亿个被售出。</p>
+<p>555的创造者是Hans Camenzind，他在1968年加入Signetics公司，打算建造世界上第一个集成锁相环（PLL，锁相环就是一种通过保证输出电压与输入电压有固定的相位差值而“锁住”输出信号和输入信号相位的电路）。NE565 PLL在1970年首次亮相，并很快在各种应用中得到广泛使用。例如，著名的被认为引发了PC革命的Altair 8800计算机，它有一个可选的磁带接口用于数据存储。双频移频键控（FSK，原理是利用载波的频率变化来传递数字信息）传递的数据是通过基于NE565的电路进行解调的。今天，PLL的应用如此广泛，以至于很难找到没有一个或多个PLL的系统。Camenzind的NE565在将PLL从一种具有“异域情调”的模拟设备转换为一种普遍的功能模块方面发挥了很大作用。</p>
+<p>在将NE565投入生产后，Camenzind为写一本书而请了假。然后，他决定不以全职雇员的身份回到Signetics公司，但同意以合同形式为他们工作。正是在这段时间，他设计了555定时器（见下图）。设计它是为了他的PLL工作，因为PLL经常需要稳定的、电压控制的振荡器。后来Camenzind扩大了项目的范围，使该芯片成为一个通用的定时器集成电路。Camenzind做出这一决定并没有经过市场研究，而仅仅是因为他需要这样一个组件，于是他假设其他人可能也需要，然后就做了。</p>
+<p><img src="https://i0.hdslb.com/bfs/album/17a1c99cdf9cd895fc9bb118f34bd7d4e6f37509.png" alt="NE555定时器的框图和原理图"></p>
+<p>工程师们很快就发现，Camenzind所提供的模块使得555可以完成非常广泛而丰富的功能，而不仅仅是作为PLL的辅助工具。555仅仅包括两个比较器、一个触发器、一个图腾柱输出驱动和一个开路集电极晶体管。然而，不知何故，这种特殊的模拟元器件的集合使几代工程师、业余爱好者和修理工能够创造出丰富多样的电路和系统。未来的考古学家将对555的无处不在感到困惑和好奇，也许他们会得出结论：555是将文明凝聚在一起的胶水。</p>
+<h2 id="Bill和Dave，以及文氏电桥"><a href="#Bill和Dave，以及文氏电桥" class="headerlink" title="Bill和Dave，以及文氏电桥"></a>Bill和Dave，以及文氏电桥</h2><p><em>（注：从这章开始准备讲通信了，时间线变了）</em></p>
+<p>Bill Hewlett和Dave Packard发迹的故事堪称传奇。这两个斯坦福大学工程系的学生在他们的导师Fred Terman（被称为 “硅谷之父”）的鼓励下，成立了一家自己的公司。在这之前，Hewlett已经设计了一个音频振荡器，这两个学生选择该仪器作为他们的“HP”公司的第一个产品。他们把它命名为 “200A”，以掩盖它是公司的第一个产品这一事实。一年后，即1939年，8台200B型振荡器被出售给华特迪士尼工作室，使该公司迈开了奔向星辰大海的第一步。<br>许多工程师曾不小心让放大器发生振荡，因此，故意制造一个振荡器似乎很容易。然而墨菲定律告诉我们，就像洗车之后必下雨一样，事情往往不能如愿。然而Hewlett的HP200不仅能做到振荡，而且能在几十年内持续产生低失真的正弦波。</p>
+<p>毫无疑问，振荡器的核心是一个正反馈回路（见下图）；从真空管10的控制栅到真空管11的板上，没有净反转。</p>
+<p><img src="https://i0.hdslb.com/bfs/album/2c289608ded2f50f08646791acd874c18c308fdf.png" alt=""></p>
+<p>一个带通滤波器R1-C1-R2-C2合上了这个反馈回路。1891年，Max Wien（也许是电子工程文献中最常拼错的名字）报告了他在桥式结构中使用这种类型的RC网络来测量阻抗的过程。这种网络的有用之处是它在带通滤波器的中心频率上表现出了零相移的特征，从而允许在那里进行振荡。为了产生一个低失真的正弦波输出，这个振荡的幅度需要通过某种机制来控制。人们可以想象出无数种这样做的方法，但很难想象出一个比Hewlett的方案更聪明、更优雅的解决方案。他用灯泡监测振幅，并利用灯泡的热敏性将振幅伺服到一个受控值。因此，振荡器有两个反馈回路—一个正反馈回路，用来实现振荡；一个负反馈回路，用来稳定振荡的振幅。</p>
+<p>电阻R4和（灯泡的）电阻R3合上了振幅控制回路。值得注意的是，这个环路使用电流模式反馈到真空管10的阴极；因此该技术并不像一些人认为的那样“现代”。如果振幅增加，灯泡的灯丝就会发热，相应的电阻增加导致负反馈的幅度也增加，与振幅的增加相对立。灯泡的额定电流很低，以至于没有明显的光亮，而且灯泡的寿命通常远远超过仪器中其他部件的寿命。</p>
+<h2 id="Gilbert和Jones的乘法器-混频器"><a href="#Gilbert和Jones的乘法器-混频器" class="headerlink" title="Gilbert和Jones的乘法器/混频器"></a>Gilbert和Jones的乘法器/混频器</h2><p>处于模拟计算和通信交汇处的电路是混频器。乘法器实际上就是混频器；选择使用哪种术语主要是一个语境问题。说到混频器（或乘法器），几乎每个通信工程师都会立即想到 “Gilbert单元”或 “Gilbert混频器”。然而，大多数教科书，以及大量的期刊和会议论文，实际上描述的是Howard E. Jones的早期发明，而不是Barrie Gilbert的的乘法器，虽然两者表面上很相似（见下图）。</p>
+<p><img src="https://i0.hdslb.com/bfs/album/f2961f529a8f2b915beb084912675f985c15b88a.png" alt="Howard E.Jones的混频器：输入和输出量为电压"></p>
+<p><img src="https://i0.hdslb.com/bfs/album/5916f040075ce9fce970e067dcaf1f1ec0867090.png" alt="Gilbert单元：变量是电流"></p>
+<p>这种差异看似微不足道，但实际上十分深刻：Gilbert的精辟见解是，尽管双极晶体管具有著名的指数式非线性特点，但完全在电流域中表示变量（注：我猜他的意思是，输入量和输出量都是电流？）可以实现惊人的线性。其基本思想可以被看作是采用预失真电路（注：人为地加入一个特性与包括功放在内的系统非线性失真恰好相反的系统，进行互相补偿）来消除核心电路的固有非线性传输特性。双极器件的非线性的可靠性质使这种消除得以成功。</p>
+<p>尽管Gilbert本人认真地试图纠正这种误解，但很难在一夜之间更正这一持续几十年的错误。</p>
+<h2 id="通信中的模拟电子技术"><a href="#通信中的模拟电子技术" class="headerlink" title="通信中的模拟电子技术"></a>通信中的模拟电子技术</h2><p>我们今天所说的电子技术曾经主要是指无线技术。无线领域中的Widlar是Edwin Howard Armstrong，他向真空三极管的发明者Lee de Forest解释了它的实际工作原理，然后利用这种理解发明了至今仍占主导地位的电路和系统。这些贡献包括超外差接收机（它普及了混频器）和宽带调频。然而，他的第一个重要发现是通过正反馈（”再生反馈”）来提高放大倍数，使用的电路如下图所示。</p>
+<p><img src="https://i0.hdslb.com/bfs/album/1f179a73789a28a83d7c16ebb42b1c9c8802816f.png" alt="Armstrong的第一个伟大发明：再生反馈"></p>
+<p>这个电路使用一个变压器T将信号从板（“wing“,W）耦合到阴极（“filament”,F）。就这个反馈回路而言，真空管作为一个（非反相）共栅放大器运行，因此该连接构成了一个增益提升的正反馈放大器。</p>
+<p>由于有了再生反馈技术，真空管从一个昂贵的、不稳定的小玩意转变为一个新领域——电子学的基础。早期的真空管在没有反馈的情况下的电压增益连5都很难达到，但再生反馈技术实现了任意的增益——甚至是振荡。工程师们第一次拥有了任由他们支配的完全电子化的高增益放大器和紧凑型振荡器，使电子工程迅速超越了作为它的爹的电力工程。从很多老工程师难以理解负反馈的价值这一点上，我们可以看出正反馈的重要性：对于享受到高增益的第一代工程师来说，丢弃宝贵的增益的想法似乎很荒谬。没关系，这种规模的范式转变确实需要时间。</p>
+<p>Armstrong在第一次世界大战末期发明的超外差接收机，即使它问世已经九十来年了，其压倒性的统治地位也仍然引人注目。单调谐控制带来了前所未有的操作便利，再加上更好的真空管所带来的电路改进和成本降低，使得超外差接收机在1930年成为主导结构。之后的多代工程师甚至从未见过除此之外的别的结构。</p>
+<h2 id="质朴的又一次胜利"><a href="#质朴的又一次胜利" class="headerlink" title="质朴的又一次胜利"></a>质朴的又一次胜利</h2><p>在Armstrong发明超外差接收机的几十年后，同时也是在iPod出现的几十年前，出现了 “All-American Five”。在大约三十年的时间内，这种调幅接收器是最受欢迎的台式收音机。它使用了“美国制造”的五个真空管以降低成本，同时提供了令人满意的性能（见下图）。</p>
+<p><img src="https://i0.hdslb.com/bfs/album/5a9312581e9993f3e917cadaec8fa1b6c8a037dc.png" alt="“All-American Five”收音机"></p>
+<p>第一个管子是一个五栅变频管，它既是本机振荡器又是混频器。在某种意义上，它可以被看作是一个早期的集成电路。这个电路的本地振荡器部分是对Armstrong最初的再生振荡器的一种呼应。阴极电流通过变压器T1耦合回第一栅极，变压器的调谐次级控制着振荡频率，因此也控制着所选择的通道，就像所有超外差接收机一样。在射频输入端口同时调谐一个简单的带通滤波器，用于镜像抑制。两个电路的调谐电容都是机械连接的，所以消费者只需转动一个旋钮就可以改变频率。</p>
+<p>第二栅极逐步接地（所以什么是逐步接地？）以作为法拉第笼来隔离振荡器和射频电路。射频信号馈送给第三栅极，电子管内的非线性交互作用以执行混合操作。第四和第五栅极逐步接地，分别消除米勒效应和抑制二次电子发射。</p>
+<p>第一级的输出通过一个双谐振中频带通滤波器耦合到一个单中频放大器，即工作在455kHz下的12BA6（V2）。12BA6是一个五极管，因此表现得很像一个级联，它允许人们在输入和输出端口都使用滤波器，而不必担心反馈造成的失谐或不稳定。</p>
+<p>解调和音频放大在V3中进行，这是一个12AV6管，它在一个玻璃壳中包含了两个二极管和一个三极管。二极管进行包络检波（从调幅信号中将低频信号解调出来的过程），三极管对解调后的音频进行放大。解调后的输出继而作为两个地方的输入，一个是输出功率放大器V4；另一个是一个额外的低通滤波器，其输出是解调输出的平均值，该信号用于根据接收到的信号强度自动控制前端和中频放大器的增益。解调输出越大，反馈到这些级的偏置越负，从而降低了它们的增益。这种自动增益控制（AGC）或自动音量控制（AVC）因此减少了人们在调收音机频道时可能出现的音量突然变大的情况。</p>
+<p>V4是一个50C5电子注功率管，用于A类音频功率放大器的配置。变压器耦合提供了必要的阻抗转换，将大约一瓦的音频输送到扬声器。</p>
+<p>一个35W4(V5)功率整流器产生直流电供给其他电子管。</p>
+<p>All-American在世界范围内被广泛模仿。由于它的流行，大批量的生产使这五种特殊的电子管的成本下降，所以任何在意成本的的收音机设计者都倾向于使用同样的电子管，因此也使用类似的电路。收音机的不同版本之间的差异其实很细微（例如，电阻或电容值的差异，有没有阴极电阻旁路电容等），所以如果想要排除（各种）收音机的故障，只用看上面的那一张原理图就可以了。</p>
+<h2 id="早期的个人音频设备：Regency-TR-1口袋收音机"><a href="#早期的个人音频设备：Regency-TR-1口袋收音机" class="headerlink" title="早期的个人音频设备：Regency TR-1口袋收音机"></a>早期的个人音频设备：Regency TR-1口袋收音机</h2><p>第一台便携式晶体管收音机在1954年圣诞节前上市，年轻的Texas Instruments（德州仪器）公司试图通过它创造晶体管的大众市场。到这时为止，晶体管的唯一商业用途是用于助听器。正如这个项目的主力Patrick Haggerty后来指出的那样，他们当时的想法是“……（我们）取得的戏剧性成就将唤醒潜在的用户……我们已经准备好、愿意并能够提供（晶体管）”Texas Instruments公司与一家名为IDEA（Industrial Development Engineering Associates，工业发展工程协会）的小公司进行了交易，该公司的Dick Koch修改了Texas Instruments公司的第一版电路（主要由Paul D. Davis和Roger Webster设计）以降低成本并提高可制造性。这项任务很有挑战性，因为当时还没有人对晶体管有多少专业知识。使这一项艰难的工作更加困难的是，当时可用的锗晶体管以今天的标准来看是相当差的（$f_T$最多只有几兆赫，$\beta$为10-20），而它们的成本却很高。使这些困难更加复杂的是缺乏现成的小型元件来搭配小型晶体管。所以要把所有的电路塞进一个小到可以放进衬衫口袋的盒子里是相当困难的（事实上，它早期的广告使用了定制的带有超大口袋的衬衫）（咋不干脆用蛇皮口袋）。为了实现如此密集的电路元件的互联，TR-1口袋收音机运用了印刷电路技术，它是第一个运用该技术的消费类电子产品 。印刷电路技术的新颖性为该产品的生产带来了许多艰巨的挑战。</p>
+<p>计算表明，TR-1不能使用超过四个晶体管，否则公司将无法以49.95美元的目标销售价格获得利润。这四个晶体管约占材料成本的一半。在一个15美元就能买到一个All-American Five的时代，很难想象这样一个昂贵的设备会有很大的市场。但是它真的获得了市场，在相当长的一段时间内，它甚至供不应求。</p>
+<p><img src="https://i0.hdslb.com/bfs/album/147f5c5b6fdb04df3526bf4eab13bdc0eac10565.png" alt=""></p>
+<p>如上图所示，四个晶体管已经足够了。在这个电路中，第一个晶体管Q1起着振荡器-混频器的作用，就像All-American Five中的第一个管子一样。集电极和发射极电路之间的变压器耦合为振荡提供了必要的正反馈。</p>
+<p>传入的射频信号使用一种被称为“吸收”的机制进行调谐，该机制由德国Telefunken公司在第一次世界大战前后开发。在这种技术中，一个耦合到输入电路的LC谐振回路将回路的谐振频率以外的所有频率的信号短路（吸收）。只有当这种短路消失时，即当射频信号的频率等于LC谐振回路的谐振频率（由C2决定）时，射频信号才能传到Q1的基极。基极-发射极二极管的固有的非线性提供了混合功能，因此，除了本地振荡器信号外，集电极电流也有一个分量在和差外差项下。然后，差分信号通过一个调谐到中频262kHz的LC带通滤波器被送入第一个中频放大器Q2。异常低的中频允许低$f_T$晶体管提供有用的增益量，但加剧了本来就很糟糕的镜像抑制问题。吸收性的LC前端谐振回路中的可变电容与LO可变电容相连。这样实现的镜像抑制程度就够了。</p>
+<p>第二个中频放大器Q3的连接方式与Q2基本相同。较大的Cµ值（可能约为30-50pF）被通过C10和C14的正反馈部分抵消（这是1920年代引入的技术，即Neutrodyne电路）。</p>
+<p>一个标准的包络检波器进行解调，然后供给一个单级的音频放大。变压器将信号耦合到检波器中，并从音频放大器中输出。</p>
+<p>AGC（自动电平控制）的功能是以一种熟悉的方式（All-American Five）实现的：解调的音频被进一步RC滤波（这里由R11和C9），由此产生的负极性反馈信号通过改变其偏置来控制第一中频段的增益。</p>
+<p>TR-1的成功除了使Texas Instruments公司成为半导体行业的领导者外，还造成了其它重要的影响。其中特别重要的是，它使IBM迅速放弃了开发新的电子管计算机，Thomas Watson的理由是，如果晶体管对于大批量的消费类电子设备来说已经足够成熟，那么现在是时候放弃电子管而考虑将晶体管用于计算机了。正如他后来讲述的那样，每当他的一个下属对晶体管表示怀疑时，他就会给他展示TR-1，这通常会解决争论。</p>
+<p>在Regency TR1首次亮相后不久，一家名为<strong>索尼</strong>的年轻公司推出了他们自己的晶体管收音机TR55。该公司将很快成为便携式电子产品的消费市场的主导者。</p>
+<h2 id="复杂的“低端”技术：三晶体管玩具对讲机"><a href="#复杂的“低端”技术：三晶体管玩具对讲机" class="headerlink" title="复杂的“低端”技术：三晶体管玩具对讲机"></a>复杂的“低端”技术：三晶体管玩具对讲机</h2><p>尽管在第二次世界大战后的几年里，真空管”玩具”对讲机曾作为兴趣项目出现过，但由于其价格太高，没有人考虑将其作为儿童的实际玩具来大量生产。晶体管的发展使这种玩具有成为现实的可能性。Texas Instruments公司的工程师Jerry Norris是第一个根据这一见解采取行动的人，他在1962年开发了所有玩具对讲机的鼻祖。这个被广泛模仿的巧妙电路使用了一个单晶体管超再生放大器/检测器（又是Armstrong的发明），然后在接收模式下进行两级音频放大（见下图）。发射信号时，超再生级成为一个稳定的晶体控制的27MHz振荡器，由另外两个晶体管组成的音频放大器进行振幅调制。在这种模式下，扬声器可作为麦克风使用。</p>
+<p><img src="https://i0.hdslb.com/bfs/album/2ea00a1b0de5e10f159b2b90f43b8412ac2cdafc.png" alt="Jerry Norris的超再生CB对讲机"></p>
+<p>晶体管Q1在该电路中完成所有的射频工作。在接收模式下，Q1被配置为一个具有不稳定偏压的Colpitts振荡器。一个传入的射频信号建立了一个初始条件，振荡在此基础上呈指数增长，提供了显著的灵敏度。偏压被安排为定期切断（”熄灭”）振荡，其速率高到足以以超奈奎斯特速率对调制进行采样（这种定期熄灭的振荡将超再生与再生区分开来）。由于永远存在的非线性，晶体管也不对称地放大了调制的射频信号。因此，集电极电流包含一个与调制本身大致成正比的成分。由C9、L4和C10组成的低通滤波器去掉了射频成分，只将调制信号传给由Q2和Q3组成的双晶体管音频放大器。</p>
+<p>在接收模式下，Q1是一个自灭的LC振荡器；而在发射模式下，石英晶体被用来控制振荡的频率，电阻器R6在发射期间被短路，以防止Q1“灭掉”。</p>
+<p>振荡器的振幅与集电极供电电压大致成正比，因此用Q2/Q3的音频信号改变供电电压，就能对载波进行振幅调制。尽管这一过程的失真很难达到高保真音频的标准，但对于语音通信来说肯定是足够的，而且对于玩具来说也绝对足够。</p>
+<p>由于这个简单的电路用如此少的晶体管提供了如此大的增益，所以它主导着玩具对讲机市场，被制造商无数次地复制和修改。多年来，我们研究了20多个超再生式对讲机电路，Norris的电路的影响是显而易见的。在所有这些电路中，一个晶体管做所有的射频工作，其余两个（有时三个）晶体管作为音频放大器。与All American Five一样，不同对讲机制造商之间的电路差异很小。</p>
+<h2 id="世界是模拟的"><a href="#世界是模拟的" class="headerlink" title="世界是模拟的"></a>世界是模拟的</h2><p>线性电路本身的故事是非线性的（不按逻辑规律的）（可以从学科发展的两条线——运放和通信上看出这一点），这听起来有点讽刺，但是我们知道，线性叙事永远是对历史的某种扭曲。当人们声称世界将 “走向数字化 “时，这些（不按逻辑规律的）历史将提醒我们，我们毕竟还是生活在一个模拟的世界。</p>
+<h2 id="后记：关于Widlar的更多故事"><a href="#后记：关于Widlar的更多故事" class="headerlink" title="后记：关于Widlar的更多故事"></a>后记：关于Widlar的更多故事</h2><p><img src="https://i0.hdslb.com/bfs/album/4b6cbedcde02dd171b009e4aaf9ba7835568be6a.jpg" alt="左手拿着水杯的Bob Widlar"></p>
+<p>可以说，是Widlar建立了模拟集成电路行业，因此，在这个后记里多说一点关于他的事情是合适的。<br>Widlar的电路设计体现出了明显的个人主义，这反映了他独特的个性。当他还在Fairchild公司时，他就以“工作狂、酒鬼、恶作剧爱好者”的称号闻名。当他加入National Semiconductor公司时，他的恶作剧已经开始成为传奇，这一点从他在1968年8月发表在《电子工程师》上的一篇文章（”National Semiconductor公司的Bob Widlar谈什么是好的集成电路”）的侧边栏就可以看出。<br>Widlar在进行设计时完全沉浸其中。他常常不停地工作直至精疲力竭，然后开着他心爱的奔驰280SL敞篷车到机场，购买一张“下一班飞机”的机票来作为放松。<br>Widlar枪支收藏的爱好让他的一些同事有点紧张，尤其是知道他会用写着他讨厌的人的名字的啤酒罐做靶子之后。</p>
+<p>采访Widlar的记者注意到，他的公寓里只有苏格兰威士忌、啤酒和杯子。”如果不算冰块的话，他的冰箱是空的”。这句话暗示了Widlar的酒量之大。</p>
+<p>几年后，当National Semiconductor公司与其他电子行业公司一起在经济衰退中受到影响时，作为公司削减成本计划的一部分，草坪维护人员被炒了。Widlar不喜欢杂草丛生的设施的邋遢样子。于是他与Bob Dobkin一起开车到圣何塞南部的某个地方买了一只羊（有人说是一只山羊，你们自己看下图判断是不是吧）。回到National Semiconductor公司后，“有人”（嘿呀是谁呢）打电话给了圣何塞水星报的记者，很快就有一名摄影师出现，记录了National Semiconductor公司新的割草技术的运行情况。</p>
+<p><img src="https://i0.hdslb.com/bfs/album/3bed7eb7f64fd2defc311acb758ee54644c29dc8.jpg" alt="Bob Widlar（后）和他的羊（前）"></p>
+<p>草坪维护人员不久后又被聘回来了。</p>
+<p>后来，Widlar带着这只羊去了Marchetti‘s，那是一个在当时很受欢迎的全国连锁酒吧。他把它留给了调酒师。历史没有记载调酒师对这只羊做了什么。</p>
+<p>在加入National Semiconductor公司仅几年后，Widlar的股票期权已经充分升值（这在很大程度上要归功于他的设计），他在1970年12月21日10:30左右从National半导体公司 “退休”。不久之后，他开着他的奔驰车来到墨西哥的巴亚尔塔港，在那里度过了他的余生。而就在一个月前，他刚刚庆祝了他的33岁生日。</p>
+<p>过了一段时间，他与刚起步的Linear Technology（凌力尔特）公司（这个公司的创办合伙人之一是和Widlar一起进行羊羊大冒险的Bob Dobkin）合作，之后他又以合同形式回到National Semiconductor公司进行设计工作。在这期间，他设计了一个运算放大器（$LM10$），提供了类似$\mu A741 $的规格，同时在1.2V的电源下运行。如果这还不够令人印象深刻的话，它还包括一个带隙电压基准（读者会注意到，标称电源电压并没有超过带隙电压）。在这一成就之后，他又推出了$LM11$——一个具有25pA输入偏置电流的双极运算放大器。他的下一个设计代表了从一个功率极端到另一个功率极端的飞跃。$LM12$是一款能够实现10安培输出电流和80W连续耗散（800W峰值）的运算放大器。它的整体保护是如此全面，以至于需要付出相当大的努力才能破坏它的正常工作。</p>
+<p>在经历了极端的生活习惯后，他最终采取了更健康的生活方式，并开始定期慢跑。1991年初的一次慢跑中，他在巴亚尔塔港的家附近心脏病发作，卒，享年53岁。</p>
+<h2 id="致谢"><a href="#致谢" class="headerlink" title="致谢"></a>致谢</h2><p>作者要感谢麻省理工学院林肯实验室的Kent Lundberg；凌力尔特公司的Joe Sousa、Bob Dobkin和Jim Williams；模拟设备公司的Barrie Gilbert和Paul Brokaw；以及美国国家半导体公司的Bob Pease和Dennis Monticelli，他们为本文提供了直接和间接的原始材料。</p>
+<h2 id="参考资料见原文末尾"><a href="#参考资料见原文末尾" class="headerlink" title="参考资料见原文末尾"></a>参考资料见原文末尾</h2>
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Qfwfq</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://cipherkint.github.io/2021/01/22/TalesoftheContinuumASubsampledHistoryofAnalogCircuits-2/">https://cipherkint.github.io/2021/01/22/TalesoftheContinuumASubsampledHistoryofAnalogCircuits-2/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Qfwfq</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Translation/">
+                                    <span class="chip bg-color">Translation</span>
+                                </a>
+                            
+                                <a href="/tags/Analog-Circuits/">
+                                    <span class="chip bg-color">Analog-Circuits</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2021/10/23/Jacobi/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/10.png" class="responsive-img" alt="笔记：Jacobi行列式的偏导形式">
+                        
+                        <span class="card-title">笔记：Jacobi行列式的偏导形式</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-10-23
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Qfwfq
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Notes/">
+                        <span class="chip bg-color">Notes</span>
+                    </a>
+                    
+                    <a href="/tags/Math/">
+                        <span class="chip bg-color">Math</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2021/01/14/TalesoftheContinuumASubsampledHistoryofAnalogCircuits/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/4.png" class="responsive-img" alt="翻译：关于连续性的故事——模拟电路的*次采样*历史(1)">
+                        
+                        <span class="card-title">翻译：关于连续性的故事——模拟电路的*次采样*历史(1)</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-14
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Qfwfq
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Translation/">
+                        <span class="chip bg-color">Translation</span>
+                    </a>
+                    
+                    <a href="/tags/Analog-Circuits/">
+                        <span class="chip bg-color">Analog-Circuits</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="album"
+                   id="37052403"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2021-2022</span>
+            
+            <a href="/about" target="_blank">Qfwfq</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link ">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
