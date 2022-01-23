@@ -342,15 +342,15 @@
 <blockquote>
 <p>练习：证明对任何集合$a$,$b$,$\{\{a\},\{a,b\}\}$是集合</p>
 <p>由对集公理：$\forall a \forall b \exists c \forall x(x\in c \leftrightarrow x=a \vee x=b)$</p>
-<p>$\forall a \forall a \exists a^{<em>} \forall x(x\in a^{</em>} \leftrightarrow x=a \vee x=a)$</p>
+<p>$\forall a \forall a \exists a^{\ast} \forall x(x\in a^{\ast} \leftrightarrow x=a \vee x=a)$</p>
 <p>即$a^*=\{a\}$是集合</p>
-<p>$\forall a \forall b \exists b^{<em>} \forall x(x\in b^{</em>} \leftrightarrow x=a \vee x=b)$</p>
+<p>$\forall a \forall b \exists b^{\ast} \forall x(x\in b^{\ast} \leftrightarrow x=a \vee x=b)$</p>
 <p>即$b^*=\{a,b\}$是集合</p>
-<p>$\forall a^{<em>} \forall b^{</em>} \exists c \forall x(x\in c \leftrightarrow x=a^{<em>} \vee x=b^{</em>})$</p>
+<p>$\forall a^{\ast} \forall b^{\ast} \exists c \forall x(x\in c \leftrightarrow x=a^{\ast} \vee x=b^{\ast})$</p>
 <p>即$c=\{a^<em>,b^</em>\}=\{\{a\},\{a,b\}\}$是集合</p>
 </blockquote>
 <p>其次，证明以下命题：</p>
-<p>命题：任何两个有序对$(a,b)$，$(a^{<em>},b^{</em>})$，$(a,b)=(a^{<em>},b^{</em>})$当且仅当$a=a^{<em>}$且$b=b^{</em>}$</p>
+<p>命题：任何两个有序对$(a,b)$，$(a^{\ast},b^{\ast})$，$(a,b)=(a^{\ast},b^{\ast})$当且仅当$a=a^{\ast}$且$b=b^{\ast}$</p>
 <p>从右边向左边使用外延公理直接证明</p>
 <p>从左边向右边使用上述定义分①$a=b$，②$a\ne b$两种情况讨论，证明的详细过程略去</p>
 <p>定义：令$X$和$Y$为集合，则$X$和$Y$的<strong>卡氏积</strong>定义为：</p>
@@ -418,8 +418,8 @@ n元关系:R\subseteq X_1\times \dots \times X_n,\\通常将(x_1,\dots,x_n)\in R
 <p>根据定义：$(x,y)\in h\wedge (x,z)\in h \rightarrow y=z$</p>
 <p>由题，$dom(f)=dom(g)$</p>
 <p>且对所有$x\in dom(f)$，都有$f(x)=g(x)$</p>
-<p>即$(a,b)\in f\wedge (a,b^{<em>})\in f \rightarrow b=b^{</em>}$</p>
-<p>$(a,c)\in g\wedge (a,c^{<em>})\in g \rightarrow c=c^{</em>}$</p>
+<p>即$(a,b)\in f\wedge (a,b^{\ast})\in f \rightarrow b=b^{\ast}$</p>
+<p>$(a,c)\in g\wedge (a,c^{\ast})\in g \rightarrow c=c^{\ast}$</p>
 <p>且$b=c$</p>
 <p>由外延公理可得</p>
 <p>$f=g$</p>
@@ -429,10 +429,10 @@ n元关系:R\subseteq X_1\times \dots \times X_n,\\通常将(x_1,\dots,x_n)\in R
 <blockquote>
 <p>练习：如果$f$和$g$为函数，证明它们的复合$h=g\circ f$也是函数，并且$h$的定义域为$dom(h)=dom(f)\cap f^{-1}[dom(g)]$</p>
 <p>$h=g\circ f=\{(x,z)|\exists y((x,y)\in f\wedge(y,z)\in g)\}$</p>
-<p>如果$h$不是函数，则$(a,b^{<em>})\in h\wedge (a,c^{</em>})\in h \rightarrow b^{<em>}\ne c^{</em>}$</p>
-<p>又由定义：$\{(a,b^{<em>})|\exists y((a,b)\in f\wedge(b,b^{</em>})\in g)\}$</p>
-<p>$\{(a,c^{<em>})|\exists y((a,c)\in f\wedge(b,c^{</em>})\in g)\}$</p>
-<p>因为$f$和$g$都为函数，所以$b=c,b^{<em>}= c^{</em>}$</p>
+<p>如果$h$不是函数，则$(a,b^{\ast})\in h\wedge (a,c^{\ast})\in h \rightarrow b^{\ast}\ne c^{\ast}$</p>
+<p>又由定义：$\{(a,b^{\ast})|\exists y((a,b)\in f\wedge(b,b^{\ast})\in g)\}$</p>
+<p>$\{(a,c^{\ast})|\exists y((a,c)\in f\wedge(b,c^{\ast})\in g)\}$</p>
+<p>因为$f$和$g$都为函数，所以$b=c,b^{\ast}= c^{\ast}$</p>
 <p>与假设矛盾，所以$h$是函数</p>
 <p>$dom(h)=\{x|\exists zh(x,z)\}=\{x|\exists y((x,y)\in f\wedge(y,z)\in g)\}$</p>
 <p>由于$\{x|\exists y((x,y)\in f)\}=dom(f)$</p>
