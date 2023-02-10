@@ -4,12 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="笔记：Jacobi行列式的偏导形式, Qfwfq&#39;s Blog">
-    <meta name="description" content="笔记：Jacobi行列式的偏导形式1. Jacobi行列式Jacobi行列式通常写作
-
-\left|
- \begin{matrix}
-   \frac{\delta (y_1)}{\delta(x_1)} &amp; \cdots &amp; \frac{">
+    <meta name="keywords" content="windows 2000系统的一个0day漏洞的发现过程, Qfwfq&#39;s Blog">
+    <meta name="description" content="windows 2000系统的一个0day漏洞的发现过程0x00-前言其实安装这个系统的本意是折腾老游戏，装点菠萝1之类的玩玩，结果找到了个漏洞，不错。
+这个漏洞位于cmd.exe，是一个缓冲区溢出漏洞，我在公开资料上没有查询到该漏洞的任何">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -21,7 +18,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>笔记：Jacobi行列式的偏导形式 | Qfwfq&#39;s Blog</title>
+    <title>windows 2000系统的一个0day漏洞的发现过程 | Qfwfq&#39;s Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -162,12 +159,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/10.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.png')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">笔记：Jacobi行列式的偏导形式</h1>
+                    <h1 class="description center-align post-title">windows 2000系统的一个0day漏洞的发现过程</h1>
                 </div>
             </div>
         </div>
@@ -283,12 +280,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Notes/">
-                                <span class="chip bg-color">Notes</span>
+                            <a href="/tags/Vulnerability/">
+                                <span class="chip bg-color">Vulnerability</span>
                             </a>
                         
-                            <a href="/tags/Math/">
-                                <span class="chip bg-color">Math</span>
+                            <a href="/tags/Windows/">
+                                <span class="chip bg-color">Windows</span>
                             </a>
                         
                     </div>
@@ -303,7 +300,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-10-23
+                    2023-02-09
                 </div>
                 
 
@@ -324,43 +321,69 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="笔记：Jacobi行列式的偏导形式"><a href="#笔记：Jacobi行列式的偏导形式" class="headerlink" title="笔记：Jacobi行列式的偏导形式"></a>笔记：Jacobi行列式的偏导形式</h1><h2 id="1-Jacobi行列式"><a href="#1-Jacobi行列式" class="headerlink" title="1. Jacobi行列式"></a>1. Jacobi行列式</h2><p>Jacobi行列式通常写作</p>
-<script type="math/tex; mode=display">
-\left|
- \begin{matrix}
-   \frac{\delta (y_1)}{\delta(x_1)} & \cdots & \frac{\delta (y_1)}{\delta(x_n)} \\
-   \vdots & \ddots & \vdots \\
-   \frac{\delta (y_m)}{\delta(x_1)} & \cdots & \frac{\delta (y_m)}{\delta(x_n)}
-  \end{matrix}
-  \right|</script><p>Jacobi矩阵描述函数<strong>对该点附近的空间</strong>进行了怎样的线性变换，（对一个整体是非线性的映射进行局部线性化）</p>
-<p>而Jacobi行列式的值则代表了函数<strong>对该点附近的空间</strong>的面积/体积伸缩程度。</p>
-<h2 id="2-偏导形式"><a href="#2-偏导形式" class="headerlink" title="2.偏导形式"></a>2.偏导形式</h2><p>Jacobi行列式可写作（以二元为例）:$\frac{\delta(F,G) }{\delta(u,v)}$</p>
-<p>直观上是在描述自变量u-v平面上的一个点P（u,v）, 在产生一个<strong>任意方向的</strong>微小运动时，因变量F-G平面 上点Q（F,G）在那个方向上扰动的剧烈程度。</p>
-<p>如果分解这个微小扰动：$dF=\frac{\delta F}{\delta u} +\frac{\delta F}{\delta v}\\<br>dG=\frac{\delta G}{\delta u} +\frac{\delta G}{\delta v}$</p>
-<p>即：我们想要评估Q点的运动，那么就把它向两个坐标方向分解（F与G）。单看F方向，F方向上Q的抖动又可能是u-v平面上P点的上下左右运动引起的，那么就再在u-v平面上分解P的运动。评估P向u方向运动时Q点在F方向上的变化率与P向v方向运动时Q点在F方向上的变化率。两者相加就是Q点随P点的微小运动在F方向上扰动的剧烈程度。G方向同理。</p>
-<p>然后我们试图把F,G两个方向上Q的信息合并。</p>
-<p>可以用向量的形式：</p>
-<script type="math/tex; mode=display">
-\left[
-    \begin{matrix}
-    dF\\
-    dG
-    \end{matrix}
-\right]=
-\left[
-    \begin{matrix}
-    \frac{\delta F}{\delta u}\\
-    \frac{\delta G}{\delta u}
-    \end{matrix}
-\right]+
-\left[
-    \begin{matrix}
-    \frac{\delta F}{\delta v}\\
-    \frac{\delta G}{\delta v}
-    \end{matrix}
-\right]</script><p>或：</p>
-<script type="math/tex; mode=display">
-（\frac{\vec{\delta Q}}{\delta u},\frac{\vec{\delta Q}}{\delta v}）</script>
+                <h1 id="windows-2000系统的一个0day漏洞的发现过程"><a href="#windows-2000系统的一个0day漏洞的发现过程" class="headerlink" title="windows 2000系统的一个0day漏洞的发现过程"></a>windows 2000系统的一个0day漏洞的发现过程</h1><h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00-前言"></a>0x00-前言</h2><p>其实安装这个系统的本意是折腾老游戏，装点菠萝1之类的玩玩，结果找到了个漏洞，不错。</p>
+<p>这个漏洞位于cmd.exe，是一个缓冲区溢出漏洞，我在公开资料上没有查询到该漏洞的任何信息，也不知道是我没查到，还是确实没人公开它，如果有谁查到这个漏洞的信息了记得提醒我一下（……）</p>
+<p><strong>实验环境</strong></p>
+<p>Microsoft Windows 2000 5.00.2195 Service Pack 4</p>
+<p><strong>用到的软件工具</strong></p>
+<p>010Editor</p>
+<p>ollydbg</p>
+<p>IDA pro</p>
+<h2 id="0x01-漏洞简述"><a href="#0x01-漏洞简述" class="headerlink" title="0x01-漏洞简述"></a>0x01-漏洞简述</h2><p>cmd.exe是windows系统传统的命令行小工具，从最早的windows系统一直到现在的windows 11都有这个小工具，当利用这个小工具对<strong>FAT32格式</strong>的磁盘目录进行dir操作时，若该目录里的文件的文件名长度<strong>刚好为260个字符</strong>时，cmd.exe进程崩溃闪退。</p>
+<p><img src="https://i0.hdslb.com/bfs/new_dyn/731962d1f3077b34f3996a322511e75f8629868.gif" alt=""></p>
+<h2 id="0x02-cmd-exe的漏洞发现过程"><a href="#0x02-cmd-exe的漏洞发现过程" class="headerlink" title="0x02-cmd.exe的漏洞发现过程"></a>0x02-cmd.exe的漏洞发现过程</h2><p><strong>文件构造</strong></p>
+<p>本漏洞需要在磁盘上构造一个文件名长度刚好260个字符的特殊文件，但是windows系统在资源管理器或者命令行工具里不允许文件名全路径长度超过260个字符，所以需要借助二进制编辑软件对磁盘分区卷进行直接的编辑长文件名目录项，构造这种特殊的文件。这里我用了010Editor。</p>
+<p><img src="https://i0.hdslb.com/bfs/new_dyn/922e300717addbad556ebc7be82743498629868.png" alt=""></p>
+<p>我在U盘H分区根目录建立一个共有20个长文件名目录项的文件，由于一个目录项32字节里有26个字节可以存储13个宽字符的文件名，这个文件的长文件名为aaaaaaaa…..aaaagf，一共有260个宽字符。</p>
+<p><strong>漏洞跟踪</strong></p>
+<p>将构造好的U盘插入Windows 2000系统，在ollydbg中开启cmd.exe进程，如下图：</p>
+<p><img src="https://i0.hdslb.com/bfs/new_dyn/be8e434be79e43424c013221bdeec40c8629868.png" alt="1675419344711"></p>
+<p>在命令行窗口执行dir e:，进程出现异常。这里我用了污点数据追踪的方法来找程序的crash point，也就是说在堆栈区找到我们构造的污点数据aaaaaaaa…..aaaagf，在这个数据附近寻找函数一开始压入的返回地址，从而追踪到溢出点，整个过程如下图：</p>
+<p><img src="https://i0.hdslb.com/bfs/new_dyn/49711a003c7e000d818a44c01b102fe08629868.jpg" alt="1675521586629"></p>
+<blockquote>
+<p>顺便一提，在不同的机器上程序的crash point可能不同，比如说在家里的另一台电脑上进行实验，crash时的Call stack是长这样的：</p>
+<p><img src="https://i0.hdslb.com/bfs/new_dyn/8c9061b7c4a03a712d4a930c39a536508629868.png" alt="1675567631072"></p>
+<p>直接就可以定位到4AD0E060的位置，都不用追踪污点数据了。</p>
+</blockquote>
+<p>在4AD17B34处调用的wcscpy，将字符串拷贝至栈空间ebp-20c，该空间大小0x20c可以放置262个宽字符，似乎不能造成栈溢出，但事实上在4AD17B34处设置断点，再次进行dir e:，如下图：</p>
+<p><img src="https://i0.hdslb.com/bfs/new_dyn/3e3a8a92cc1cd7a2c65618285237cfcb8629868.png" alt="1675522650676"></p>
+<p>执行完wcscpy后，函数的返回地址被覆盖，如下图（执行前、执行后栈12EA70处的值）：</p>
+<p><img src="https://i0.hdslb.com/bfs/new_dyn/1d7386a35e6abb2b1c2ce37b16824ac18629868.png" alt="1675524779249"></p>
+<p><img src="https://i0.hdslb.com/bfs/new_dyn/dbeebc6988071bd5a0d22409d6840a848629868.png" alt="1675524831589"></p>
+<p>堆栈缓冲区的溢出，覆盖了函数在栈12EA70处的函数返回地址和后续的栈结构，继续进程执行由于栈的破环造成对非法地址的访问而异常终止。</p>
+<h2 id="0x03-缓冲区溢出漏洞的成因"><a href="#0x03-缓冲区溢出漏洞的成因" class="headerlink" title="0x03-缓冲区溢出漏洞的成因"></a>0x03-缓冲区溢出漏洞的成因</h2><p>现在的问题是，我构造的长文件名只有260个宽字符，占有0x208个字节的空间，wcscpy拷贝函数的目的地址栈空间明明有0x20c个字节，为什么有足够的栈空间也造成了溢出?</p>
+<p>进一步的追踪源字符串的来源，发现cmd.exe程序调用了系统内核模块kernel32.dll的导出函数FindNextFileW对目录中的文件进行遍历，依次得到目录中的长文件名，如下图：</p>
+<p><img src="https://i0.hdslb.com/bfs/new_dyn/687df25fcea9806f3373e9c2296475358629868.png" alt="1675525516229"></p>
+<p>Windows2000的FindNextFileW函数在对刚好为260个宽字符的长文件名进行的遍历时，获得数据存储在类型为WIN32_FIND_DATA的结构中，该结构体的定义如下：</p>
+<pre><code>typedef struct _WIN32_FIND_DATA &#123;
+    DWORD dwFileAttributes; //文件属性
+    FILETIME ftCreationTime; // 文件创建时间
+    FILETIME ftLastAccessTime; // 文件最后一次访问时间
+    FILETIME ftLastWriteTime; // 文件最后一次修改时间
+    DWORD nFileSizeHigh; // 文件长度高32位
+    DWORD nFileSizeLow; // 文件长度低32位
+    DWORD dwReserved0; // 系统保留
+    DWORD dwReserved1; // 系统保留
+    TCHAR cFileName[ MAX_PATH ]; // 长文件名
+    TCHAR cAlternateFileName[ 14 ]; // 8.3格式文件名
+&#125; WIN32_FIND_DATA, *PWIN32_FIND_DATA;
+</code></pre><p>在windows系统中常常把MAX_PATH宏定义为260，cmd.exe通过FindNextFileW函数遍历得到长文件名和短文件名在内存空间中相邻存储，当磁盘上的长文件名数据刚好260个宽字符时，造成了两个字符串的合并，如下图：</p>
+<p><img src="https://i0.hdslb.com/bfs/new_dyn/098bfd22aa6432cbfeccec4ad809dc2a8629868.png" alt="1675526464784"></p>
+<p>进一步研究发现wcscpy的第二个参数指向的源字符串为从磁盘上得到的长文件名，其后紧接着的为该文件的短文件名，正常情况下的长文件名后按照字符串的结尾规则以‘\0’字符结尾表示字符串结束，但当长文件名长度为260个宽字符时，长文件名最后没有结束字符‘\0’,长文件名和短文件名变成了同一个字符串，短文件名占据了12个宽字符，这样源字符串的长度为272个宽字符，占据了0x220的堆栈空间，从而造成了返回地址及栈结构的覆盖。</p>
+<h2 id="0x04-Windows-XP-SP3系统以及后续的Windows系统中是否存在该漏洞"><a href="#0x04-Windows-XP-SP3系统以及后续的Windows系统中是否存在该漏洞" class="headerlink" title="0x04-Windows XP SP3系统以及后续的Windows系统中是否存在该漏洞?"></a>0x04-Windows XP SP3系统以及后续的Windows系统中是否存在该漏洞?</h2><p>进一步的，我对Windows XP SP3的cmd.exe小工具进行了逆向分析，发现与windows 2000的代码极为相似，不同的是Windows XP SP3启用了GS保护，大多数函数中都进行了堆栈cookie的校验，但是GS保护只能增加漏洞利用的难度，并不能杜绝缓冲区溢出对进程堆栈结构造成的破坏，若程序代码相同应该存在同样的漏洞。如下图：</p>
+<p><img src="https://i0.hdslb.com/bfs/new_dyn/ca703b3fd320e1b1f4500e011009768f8629868.png" alt="1675526869385"></p>
+<p>在XP系统中，目的字符串的空间为0x210仍然小于长文件名+短文件名后的最大长度0x220，仍然具备潜在的被溢出覆盖的可能性。</p>
+<p>然而事实上，在XP系统下对构造后的U盘进行dir 操作时，并没有造成进程闪退，而是将文件名的最后一个字符舍弃后显示文件名，如下图：</p>
+<p><img src="https://i0.hdslb.com/bfs/new_dyn/5bb4661bf1794de091495e9baa3d0d718629868.png" alt="1675526967689"></p>
+<p>这说明在XP系统下该漏洞并不存在，为了进一步澄清两个系统的不同，我对XP系统的kernel32.dll的FindNexeFile函数进行了逆向，如下图：</p>
+<p><img src="https://i0.hdslb.com/bfs/new_dyn/ac44718857dfc22bd003edc0a73a5c3a8629868.png" alt="1675527740574"></p>
+<p>Windows XP的Kernel32.dll的FindNextFileW函数对文件名的长度进行了检测，若长度大于0x206的文件名，取值0x206,这样该函数遍历得到的文件名最长259个宽字符，仍以字符串结束符’\0’放置在最后一个字节。由此可以合理推测，高版本的windows系统已经修补了该漏洞。</p>
+<h2 id="0x05-shellcode"><a href="#0x05-shellcode" class="headerlink" title="0x05-shellcode"></a>0x05-shellcode</h2><p>Windows 2000系统没有任何GS，ALSR，DEP等后续Microsoft公司在安全方面的提升，所以可以很方便地利用该漏洞编写shellcode执行任意的程序，这里写一个启动计算器的，以下是构造的文件与对应的代码：</p>
+<p><img src="https://i0.hdslb.com/bfs/new_dyn/1a736ecab37033e53322511d440225b28629868.png" alt="1675950088313"></p>
+<p><img src="https://i0.hdslb.com/bfs/new_dyn/64890a05f8044436bcccf156fa91e17f8629868.png" alt="1675950095981"></p>
+<p>最后的效果如下：</p>
+<p><img src="https://i0.hdslb.com/bfs/new_dyn/46080be4f6d7fdfdb10e8df01c0759478629868.gif" alt="1675950157433"></p>
+
                 
             </div>
             <hr/>
@@ -386,7 +409,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://cipherkint.github.io/2021/10/23/Jacobi/">https://cipherkint.github.io/2021/10/23/Jacobi/</a>
+                    <a href="https://cipherkint.github.io/2023/02/09/win2000-vul/">https://cipherkint.github.io/2023/02/09/win2000-vul/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -424,12 +447,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Notes/">
-                                    <span class="chip bg-color">Notes</span>
+                                <a href="/tags/Vulnerability/">
+                                    <span class="chip bg-color">Vulnerability</span>
                                 </a>
                             
-                                <a href="/tags/Math/">
-                                    <span class="chip bg-color">Math</span>
+                                <a href="/tags/Windows/">
+                                    <span class="chip bg-color">Windows</span>
                                 </a>
                             
                         </div>
@@ -472,65 +495,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
-            <div class="card">
-                <a href="/2021/12/22/Negativland/">
-                    <div class="card-image">
-                        
-                        <img src="/medias/featureimages/negativland.png" class="responsive-img" alt="翻译：Negativland的简介">
-                        
-                        <span class="card-title">翻译：Negativland的简介</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-12-22
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            Qfwfq
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Musics/">
-                        <span class="chip bg-color">Musics</span>
-                    </a>
-                    
-                    <a href="/tags/Translation/">
-                        <span class="chip bg-color">Translation</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
             </div>
             <div class="card">
-                <a href="/2021/10/23/Jacobi/">
+                <a href="/2023/02/09/win2000-vul/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.png" class="responsive-img" alt="笔记：Jacobi行列式的偏导形式">
+                        <img src="/medias/featureimages/7.png" class="responsive-img" alt="windows 2000系统的一个0day漏洞的发现过程">
                         
-                        <span class="card-title">笔记：Jacobi行列式的偏导形式</span>
+                        <span class="card-title">windows 2000系统的一个0day漏洞的发现过程</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -541,7 +517,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-10-23
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-09
                             </span>
                         <span class="publish-author">
                             
@@ -552,6 +528,55 @@
                     </div>
                 </div>
 
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Vulnerability/">
+                        <span class="chip bg-color">Vulnerability</span>
+                    </a>
+                    
+                    <a href="/tags/Windows/">
+                        <span class="chip bg-color">Windows</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/07/30/journey_notes_1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/11.png" class="responsive-img" alt="旅行笔记：费马小定理（素性测试）（1）">
+                        
+                        <span class="card-title">旅行笔记：费马小定理（素性测试）（1）</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-30
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Qfwfq
+                            
+                        </span>
+                    </div>
+                </div>
                 
                 <div class="card-action article-tags">
                     
@@ -691,13 +716,6 @@
 
 </main>
 
-
-<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script>
-    MathJax.Hub.Config({
-        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
-    });
-</script>
 
 
 
