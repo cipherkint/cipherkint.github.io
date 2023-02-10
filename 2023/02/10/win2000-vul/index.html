@@ -336,7 +336,7 @@ windows 2000系统的一个0day漏洞的发现过程0x00-前言其实安装这�
 <h2 id="0x01-漏洞简述"><a href="#0x01-漏洞简述" class="headerlink" title="0x01-漏洞简述"></a>0x01-漏洞简述</h2><p>cmd.exe是windows系统传统的命令行小工具，从最早的windows系统一直到现在的windows 11都有这个小工具，当利用这个小工具对<strong>FAT32格式</strong>的磁盘目录进行dir操作时，若该目录里的文件的文件名长度<strong>刚好为260个字符</strong>时，cmd.exe进程崩溃闪退。</p>
 <p><img src="https://i0.hdslb.com/bfs/new_dyn/731962d1f3077b34f3996a322511e75f8629868.gif" alt="崩溃闪退的过程"></p>
 <h2 id="0x02-cmd-exe的漏洞发现过程"><a href="#0x02-cmd-exe的漏洞发现过程" class="headerlink" title="0x02-cmd.exe的漏洞发现过程"></a>0x02-cmd.exe的漏洞发现过程</h2><p><strong>文件构造</strong></p>
-<p>本漏洞需要在磁盘上构造一个文件名长度刚好260个字符的特殊文件，但是windows系统在资源管理器或者命令行工具里不允许文件名全路径长度超过260个字符，所以需要借助二进制编辑软件对磁盘分区卷进行直接的编辑长文件名目录项，构造这种特殊的文件。这里我用了010Editor。</p>
+<p>本漏洞需要在磁盘上构造一个文件名长度刚好260个字符的特殊文件，但是windows系统在资源管理器或者命令行工具里不允许文件名全路径长度超过260个字符，所以需要借助二进制编辑软件对磁盘分区卷的长文件名目录项进行直接的编辑，构造这种特殊的文件。这里我用了010Editor。</p>
 <p><img src="https://i0.hdslb.com/bfs/new_dyn/922e300717addbad556ebc7be82743498629868.png" alt=""></p>
 <p>我在U盘H分区根目录建立一个共有20个长文件名目录项的文件，由于一个目录项32字节里有26个字节可以存储13个宽字符的文件名，这个文件的长文件名为aaaaaaaa…..aaaagf，一共有260个宽字符。</p>
 <p><strong>漏洞跟踪</strong></p>
