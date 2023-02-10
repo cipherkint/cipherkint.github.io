@@ -376,18 +376,18 @@ windows 2000系统的一个0day漏洞的发现过程0x00-前言其实安装这�
 <p><img src="https://i0.hdslb.com/bfs/new_dyn/098bfd22aa6432cbfeccec4ad809dc2a8629868.png" alt=""></p>
 <p>进一步研究发现wcscpy的第二个参数指向的源字符串为从磁盘上得到的长文件名，其后紧接着的为该文件的短文件名，正常情况下的长文件名后按照字符串的结尾规则以‘\0’字符结尾表示字符串结束，但当长文件名长度为260个宽字符时，长文件名最后没有结束字符‘\0’,长文件名和短文件名变成了同一个字符串，短文件名占据了12个宽字符，这样源字符串的长度为272个宽字符，占据了0x220的堆栈空间，从而造成了返回地址及栈结构的覆盖。</p>
 <h2 id="0x04-Windows-XP-SP3系统以及后续的Windows系统中是否存在该漏洞"><a href="#0x04-Windows-XP-SP3系统以及后续的Windows系统中是否存在该漏洞" class="headerlink" title="0x04-Windows XP SP3系统以及后续的Windows系统中是否存在该漏洞?"></a>0x04-Windows XP SP3系统以及后续的Windows系统中是否存在该漏洞?</h2><p>进一步的，我对Windows XP SP3的cmd.exe小工具进行了逆向分析，发现与windows 2000的代码极为相似，不同的是Windows XP SP3启用了GS保护，大多数函数中都进行了堆栈cookie的校验，但是GS保护只能增加漏洞利用的难度，并不能杜绝缓冲区溢出对进程堆栈结构造成的破坏，若程序代码相同应该存在同样的漏洞。如下图：</p>
-<p><img src="https://i0.hdslb.com/bfs/new_dyn/ca703b3fd320e1b1f4500e011009768f8629868.png" alt="1675526869385"></p>
+<p><img src="https://i0.hdslb.com/bfs/new_dyn/ca703b3fd320e1b1f4500e011009768f8629868.png" alt=""></p>
 <p>在XP系统中，目的字符串的空间为0x210仍然小于长文件名+短文件名后的最大长度0x220，仍然具备潜在的被溢出覆盖的可能性。</p>
 <p>然而事实上，在XP系统下对构造后的U盘进行dir 操作时，并没有造成进程闪退，而是将文件名的最后一个字符舍弃后显示文件名，如下图：</p>
-<p><img src="https://i0.hdslb.com/bfs/new_dyn/5bb4661bf1794de091495e9baa3d0d718629868.png" alt="1675526967689"></p>
+<p><img src="https://i0.hdslb.com/bfs/new_dyn/5bb4661bf1794de091495e9baa3d0d718629868.png" alt=""></p>
 <p>这说明在XP系统下该漏洞并不存在，为了进一步澄清两个系统的不同，我对XP系统的kernel32.dll的FindNexeFile函数进行了逆向，如下图：</p>
-<p><img src="https://i0.hdslb.com/bfs/new_dyn/ac44718857dfc22bd003edc0a73a5c3a8629868.png" alt="1675527740574"></p>
+<p><img src="https://i0.hdslb.com/bfs/new_dyn/ac44718857dfc22bd003edc0a73a5c3a8629868.png" alt=""></p>
 <p>Windows XP的Kernel32.dll的FindNextFileW函数对文件名的长度进行了检测，若长度大于0x206的文件名，取值0x206,这样该函数遍历得到的文件名最长259个宽字符，仍以字符串结束符’\0’放置在最后一个字节。由此可以合理推测，高版本的windows系统已经修补了该漏洞。</p>
 <h2 id="0x05-shellcode"><a href="#0x05-shellcode" class="headerlink" title="0x05-shellcode"></a>0x05-shellcode</h2><p>Windows 2000系统没有任何GS，ALSR，DEP等后续Microsoft公司在安全方面的提升，所以可以很方便地利用该漏洞编写shellcode执行任意的程序，这里写一个启动计算器的，以下是构造的文件与对应的代码：</p>
-<p><img src="https://i0.hdslb.com/bfs/new_dyn/1a736ecab37033e53322511d440225b28629868.png" alt="1675950088313"></p>
-<p><img src="https://i0.hdslb.com/bfs/new_dyn/64890a05f8044436bcccf156fa91e17f8629868.png" alt="1675950095981"></p>
+<p><img src="https://i0.hdslb.com/bfs/new_dyn/1a736ecab37033e53322511d440225b28629868.png" alt=""></p>
+<p><img src="https://i0.hdslb.com/bfs/new_dyn/64890a05f8044436bcccf156fa91e17f8629868.png" alt=""></p>
 <p>最后的效果如下：</p>
-<p><img src="https://i0.hdslb.com/bfs/new_dyn/46080be4f6d7fdfdb10e8df01c0759478629868.gif" alt="1675950157433"></p>
+<p><img src="https://i0.hdslb.com/bfs/new_dyn/46080be4f6d7fdfdb10e8df01c0759478629868.gif" alt="启动计算器的过程"></p>
 
                 
             </div>
