@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>【电子垃圾场】关于PIF文件的一些事实</title>
+      <link href="/2023/07/08/some-fact-about-pif/"/>
+      <url>/2023/07/08/some-fact-about-pif/</url>
+      
+        <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"/><h1 id="【电子垃圾场】关于PIF文件的一些事实"><a href="#【电子垃圾场】关于PIF文件的一些事实" class="headerlink" title="【电子垃圾场】关于PIF文件的一些事实"></a>【电子垃圾场】关于PIF文件的一些事实</h1><blockquote><p><em>即使是不成功的产品也会留下痕迹</em></p></blockquote><h2 id="0x00"><a href="#0x00" class="headerlink" title="0x00"></a>0x00</h2><p>PIF文件（Program Information File）是Windows系统中的一种可执行文件，用来帮助MS-DOS应用程序知道如何在Windows多任务环境里运行，避免一些资源的浪费。换句话说，它是为了“兼容性”而存在的，一种新旧交替的混乱产物。</p><h2 id="0x01"><a href="#0x01" class="headerlink" title="0x01"></a>0x01</h2><p>微软官方没有说明PIF文件的格式。但是Mike（EDOS的作者）以实验的方式得到了大概的结构：</p><div class="table-container"><table><thead><tr><th>偏移量</th><th>长度</th><th>文件相对应的部分</th></tr></thead><tbody><tr><td>0000h</td><td>0171h</td><td>基本块</td></tr><tr><td>0171h</td><td>0016h</td><td>基本块的头</td></tr><tr><td>0187h</td><td>0016h</td><td>第一块的头</td></tr><tr><td>019Dh</td><td></td><td>第一块</td></tr><tr><td></td><td>0016h</td><td>第二块的头</td></tr><tr><td></td><td></td><td>第二块</td></tr><tr><td></td><td></td><td>……</td></tr><tr><td></td><td>0016h</td><td>最后一块的头</td></tr><tr><td></td><td></td><td>最后一块</td></tr></tbody></table></div><p>这里的“第一块”“第二块”等指的是WINDOWS 386 3.0块，WINDOWS 286 3.0块，WINDOWS VMM 4.0块等，这些块内的结构也由实验得到了，由于篇幅过长这里不放了，请从此处下载查看：<a href="https://www.jianguoyun.com/p/DQiFmlMQ4auPBxjAqI8FIAA">https://www.jianguoyun.com/p/DQiFmlMQ4auPBxjAqI8FIAA</a></p><h2 id="0x02"><a href="#0x02" class="headerlink" title="0x02"></a>0x02</h2><p>Windows 2000中的一个pif文件的例子：</p><p>_default.pif</p><p><img src="https://i0.hdslb.com/bfs/new_dyn/26166ed2f7a96e68205308ed6904aadf8629868.png" alt=""></p><h2 id="0x03"><a href="#0x03" class="headerlink" title="0x03"></a>0x03</h2><p>PIF文件的鼻祖是TopView。TopView<strong>是</strong>IBM开发的第一个面向对象、多任务和窗口的PC DOS个人计算机操作环境。它并不是一个成功的产品，销量从一开始就低于预期，并迅速衰落。但是正如本文开头所说，<strong>即使是不成功的产品也会留下痕迹</strong>，在Topview衰落和死亡之后很长一段时间，微软仍然继续着对PIF文件的改造与使用，事实上，本文的第二条所展示的_default.pif正是Windows 2000系统下的默认PIF文件，即使到了NT时期，微软也没有停止对PIF文件的使用。</p><h2 id="0x04"><a href="#0x04" class="headerlink" title="0x04"></a>0x04</h2><p>Windows使用PIF文件的流程：DOS会话是通过调用WinExec函数启动的。当WinExec函数发现它所启动的是DOS而不是Windows程序时，它会启动WinOldAp（增强模式下的WINOA386.MOD）程序，并为其指定要运行的PIF或DOS应用程序名称。如果给出的是DOS应用程序名称，WinOldAp将使用 _DEFAULT.PIF（上文给出的）。如果使用显式 PIF 名称，它将包含要执行的 DOS 应用程序或批处理文件的名称。<em>当</em>WinOldAp的第一个实例启动时，将加载 386 采集器。WinOldAp创建虚拟机 (VM)，然后WSHELL（内置于 WIN386.EXE 中的虚拟设备驱动程序VxD）强制 DOS 应用程序在新 VM中启动。然后WinOldAp打开要使用的PIF文件，并读出启动会话所需的数据。</p><h2 id="0x05"><a href="#0x05" class="headerlink" title="0x05"></a>0x05</h2><p>PIF文件曾作为病毒文件的伪装被黑客大量使用，黑客们选中PIF文件主要出于以下两个原因：</p><p>①由于PIF文件以快捷方式文件存在，故即使在去掉勾选“隐藏已知文件类型的扩展名”的情况下，该文件的后缀名也不会显示，所以极容易被伪装成.txt等会使人们放下戒心、毫不犹豫地点开的文件。比方说这个文件，它就是某个会被附在邮件里发送给受害者的病毒样本。</p><p><img src="https://i0.hdslb.com/bfs/new_dyn/eb145f7c198d151ed496d9b9373c386c8629868.png" alt=""></p><p>②尽管PIF格式的文件不包含任何可执行代码，但Windows以相同的方式处理具有（伪）可执行文件扩展名的所有文件：所有.COM、.EXE、.PIF都由ShellExecute函数分析，并根据其<strong>内容而不是扩展名</strong>运行。也就是说，上图中的Readme.txt     （中间省去很多空格）     .pif文件虽然以pif为后缀，但其中的内容并不按上文中所讲的PIF文件的格式排布，而是以EXE文件的格式，ShellExecute函数分析它时也不会认为它是一个PIF文件，而是会认为它是一个EXE文件，它将会以EXE文件的方式运行。上图中的文件的开头如下：</p><p><img src="https://i0.hdslb.com/bfs/new_dyn/fb6dabf409fdbf647d8b5f414620d77c8629868.png" alt=""></p><p>可以看出，这个文件仅仅是EXE文件改了后缀而已。</p><h2 id="0x06"><a href="#0x06" class="headerlink" title="0x06"></a>0x06</h2><p>除了被用于隐藏恶意软件的文件后缀之外，VMM 4.0之后，Windows XP之前的PIF文件也有另一个被黑客利用的攻击媒介：NT PIF文件增加了一种新的记录类型，即上面_default.pif的图中标出的最后一个块。该记录由ID字符串（”WINDOWS NT 3.1”）开始，然后是12个未知字节，接着是两个64字节的字段，用于保存两个文件的路径名：会话专用的AUTOEXEC.BAT和CONFIG.SYS文件。可以利用这两个文件使PIF文件执行批处理脚本，实现一些非预期的行动。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Notes </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Windows </tag>
+            
+            <tag> Archeology </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>windows 2000系统的一个0day漏洞的发现过程</title>
       <link href="/2023/02/10/win2000-vul/"/>
       <url>/2023/02/10/win2000-vul/</url>
