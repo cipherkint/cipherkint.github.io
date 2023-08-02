@@ -348,7 +348,7 @@ Windows 2000 系统资源管理器的一个漏洞0x00-前言这似乎又是一�
                 <meta name="referrer" content="no-referrer"/>
 
 <h1 id="Windows-2000-系统资源管理器的一个漏洞"><a href="#Windows-2000-系统资源管理器的一个漏洞" class="headerlink" title="Windows 2000 系统资源管理器的一个漏洞"></a>Windows 2000 系统资源管理器的一个漏洞</h1><h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00-前言"></a>0x00-前言</h2><p><em>这似乎又是一个0 day漏洞（？）</em></p>
-<p>这个漏洞与pif文件有关，是我在研究pif文件的时候发现的，关于pif文件的一些资料我整理到自己的博客里了：<a href="https://qfwfq.top/2023/07/08/some-fact-about-pif/，后面会用到里面的一些内容。">https://qfwfq.top/2023/07/08/some-fact-about-pif/，后面会用到里面的一些内容。</a></p>
+<p>这个漏洞与pif文件有关，是我在研究pif文件的时候发现的，关于pif文件的一些资料我整理到自己的博客里了：<a href="https://qfwfq.top/2023/07/08/some-fact-about-pif/">https://qfwfq.top/2023/07/08/some-fact-about-pif/</a><br>后面会用到里面的一些内容。</p>
 <p><strong>实验环境</strong></p>
 <p>Microsoft Windows 2000 5.00.2195 Service Pack 4</p>
 <p><strong>用到的软件工具</strong></p>
@@ -438,8 +438,8 @@ Windows 2000 系统资源管理器的一个漏洞0x00-前言这似乎又是一�
 <p>在堆栈被覆盖后的代码里又使用到this指针。</p>
 <p><img src="https://i0.hdslb.com/bfs/new_dyn/c125e88189a8021cd0550e90633021ed8629868.png" alt="11"></p>
 <p>造成程序没有执行到函数返回指令的机会，所以按照常规方法通过返回地址得到程序执行权的方法在这里不适用。</p>
-<pre><code>但是this指针被覆盖也为我们提供了获得执行的机会，我们在溢出this指针的数据处设置为堆栈地址硬编码，在溢出数据中构造出索引虚函数地址的数据，可以**概率性**的实现计算器的启动。下面是我构造的pif文件：
-</code></pre><p><img src="https://i0.hdslb.com/bfs/new_dyn/b72f64f7c622cbc6f938651946adac268629868.png" alt="12"></p>
+<p>但是this指针被覆盖也为我们提供了获得执行的机会，我们在溢出this指针的数据处设置为堆栈地址硬编码，在溢出数据中构造出索引虚函数地址的数据，可以<strong>概率性</strong>的实现计算器的启动。下面是我构造的pif文件：</p>
+<p><img src="https://i0.hdslb.com/bfs/new_dyn/b72f64f7c622cbc6f938651946adac268629868.png" alt="12"></p>
 <p>程序执行到this指针索引到的虚函数调用时，数据区里包含了我们的shellcode，启动的程序路径，和用来索引虚函数的链表结构。如下图：</p>
 <p><img src="https://i0.hdslb.com/bfs/new_dyn/b2237e01b3fec593ae0ea560bb6050288629868.png" alt="13"></p>
 <p>其中包含了我写的shellcode：</p>
