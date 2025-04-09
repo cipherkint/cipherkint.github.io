@@ -283,31 +283,6 @@
     </entry>
     
     
-    
-    <entry>
-      <title>笔记：Jacobi行列式的偏导形式</title>
-      <link href="/2021/10/23/Jacobi/"/>
-      <url>/2021/10/23/Jacobi/</url>
-      
-        <content type="html"><![CDATA[<h1 id="笔记：Jacobi行列式的偏导形式"><a href="#笔记：Jacobi行列式的偏导形式" class="headerlink" title="笔记：Jacobi行列式的偏导形式"></a>笔记：Jacobi行列式的偏导形式</h1><h2 id="1-Jacobi行列式"><a href="#1-Jacobi行列式" class="headerlink" title="1. Jacobi行列式"></a>1. Jacobi行列式</h2><p>Jacobi行列式通常写作</p><script type="math/tex; mode=display">\left| \begin{matrix}   \frac{\delta (y_1)}{\delta(x_1)} & \cdots & \frac{\delta (y_1)}{\delta(x_n)} \\   \vdots & \ddots & \vdots \\   \frac{\delta (y_m)}{\delta(x_1)} & \cdots & \frac{\delta (y_m)}{\delta(x_n)}  \end{matrix}  \right|</script><p>Jacobi矩阵描述函数<strong>对该点附近的空间</strong>进行了怎样的线性变换，（对一个整体是非线性的映射进行局部线性化）</p><p>而Jacobi行列式的值则代表了函数<strong>对该点附近的空间</strong>的面积/体积伸缩程度。</p><h2 id="2-偏导形式"><a href="#2-偏导形式" class="headerlink" title="2.偏导形式"></a>2.偏导形式</h2><p>Jacobi行列式可写作（以二元为例）:$\frac{\delta(F,G) }{\delta(u,v)}$</p><p>直观上是在描述自变量u-v平面上的一个点P（u,v）, 在产生一个<strong>任意方向的</strong>微小运动时，因变量F-G平面 上点Q（F,G）在那个方向上扰动的剧烈程度。</p><p>如果分解这个微小扰动：$dF=\frac{\delta F}{\delta u} +\frac{\delta F}{\delta v}\\<br>dG=\frac{\delta G}{\delta u} +\frac{\delta G}{\delta v}$</p><p>即：我们想要评估Q点的运动，那么就把它向两个坐标方向分解（F与G）。单看F方向，F方向上Q的抖动又可能是u-v平面上P点的上下左右运动引起的，那么就再在u-v平面上分解P的运动。评估P向u方向运动时Q点在F方向上的变化率与P向v方向运动时Q点在F方向上的变化率。两者相加就是Q点随P点的微小运动在F方向上扰动的剧烈程度。G方向同理。</p><p>然后我们试图把F,G两个方向上Q的信息合并。</p><p>可以用向量的形式：</p><script type="math/tex; mode=display">\left[    \begin{matrix}    dF\\    dG    \end{matrix}\right]=\left[    \begin{matrix}    \frac{\delta F}{\delta u}\\    \frac{\delta G}{\delta u}    \end{matrix}\right]+\left[    \begin{matrix}    \frac{\delta F}{\delta v}\\    \frac{\delta G}{\delta v}    \end{matrix}\right]</script><p>或：</p><script type="math/tex; mode=display">（\frac{\vec{\delta Q}}{\delta u},\frac{\vec{\delta Q}}{\delta v}）</script>]]></content>
-      
-      
-      <categories>
-          
-          <category> Notes </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Math </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
   
   
 </search>
