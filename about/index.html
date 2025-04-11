@@ -440,7 +440,7 @@
                 type: 'pie',
                 radius: '50%',
                 color: ['#6772e5', '#ff9e0f', '#fa755a', '#3ecf8e', '#82d3f4', '#ab47bc', '#525f7f', '#f51c47', '#26A69A'],
-                data: [{"name":"Analysis","value":2},{"name":"Translation","value":3},{"name":"Notes","value":6}],
+                data: [{"name":"Translation","value":3},{"name":"Notes","value":6},{"name":"Analysis","value":2}],
                 itemStyle: {
                     emphasis: {
                         shadowBlur: 10,
@@ -464,7 +464,7 @@
         xAxis: [
             {
                 type: 'category',
-                data: ["Math","Windows","Vulnerability","Analog-Circuits","Musics","Archeology"]
+                data: ["Math","Windows","Analog-Circuits","Vulnerability","Musics","Archeology"]
             }
         ],
         yAxis: [
@@ -745,6 +745,21 @@ $(function () {
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>

@@ -240,19 +240,10 @@
                 
                 
                 
-                <a href="/categories/Analysis/" title="Analysis: 2">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #F9EBEA;">Analysis
-                        <span class="tag-length">2</span>
-                    </span>
-                </a>
-                
-                
                 <a href="/categories/Translation/" title="Translation: 3">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #F5EEF8;">Translation
+                            style="background-color: #F9EBEA;">Translation
                         <span class="tag-length">3</span>
                     </span>
                 </a>
@@ -261,8 +252,17 @@
                 <a href="/categories/Notes/" title="Notes: 6">
                     <span class="chip center-align waves-effect waves-light
                              chip-active "
-                            style="background-color: #D5F5E3;">Notes
+                            style="background-color: #F5EEF8;">Notes
                         <span class="tag-length">6</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/categories/Analysis/" title="Analysis: 2">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            style="background-color: #D5F5E3;">Analysis
+                        <span class="tag-length">2</span>
                     </span>
                 </a>
                 
@@ -809,6 +809,21 @@ $(function () {
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>
