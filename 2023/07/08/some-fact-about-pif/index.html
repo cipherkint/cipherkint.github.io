@@ -6,18 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="【电子垃圾场】关于PIF文件的一些事实  即使是不成功的产品也会留下痕迹  0x00 PIF文件（Program Information File）是Windows系统中的一种可执行文件，用来帮助MS-DOS应用程序知道如何在Windows多任务环境里运行，避免一些资源的浪费。换句话说，它是为了“兼容性”而存在的，一种新旧交替的混乱产物。 0x01 微软官方没有说明PIF文件的格式。但是Mike">
+    <meta name="description" content="即使是不成功的产品也会留下痕迹  0x00 PIF文件（Program Information File）是Windows系统中的一种可执行文件，用来帮助MS-DOS应用程序知道如何在Windows多任务环境里运行，避免一些资源的浪费。换句话说，它是为了“兼容性”而存在的，一种新旧交替的混乱产物。 0x01 微软官方没有说明PIF文件的格式。但是Mike（EDOS的作者）以实验的方式得到了大概">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【电子垃圾场】关于PIF文件的一些事实">
 <meta property="og:url" content="https://qfwfq.top/2023/07/08/some-fact-about-pif/index.html">
 <meta property="og:site_name" content="Qfwfq&#39;s Blog">
-<meta property="og:description" content="【电子垃圾场】关于PIF文件的一些事实  即使是不成功的产品也会留下痕迹  0x00 PIF文件（Program Information File）是Windows系统中的一种可执行文件，用来帮助MS-DOS应用程序知道如何在Windows多任务环境里运行，避免一些资源的浪费。换句话说，它是为了“兼容性”而存在的，一种新旧交替的混乱产物。 0x01 微软官方没有说明PIF文件的格式。但是Mike">
+<meta property="og:description" content="即使是不成功的产品也会留下痕迹  0x00 PIF文件（Program Information File）是Windows系统中的一种可执行文件，用来帮助MS-DOS应用程序知道如何在Windows多任务环境里运行，避免一些资源的浪费。换句话说，它是为了“兼容性”而存在的，一种新旧交替的混乱产物。 0x01 微软官方没有说明PIF文件的格式。但是Mike（EDOS的作者）以实验的方式得到了大概">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://i0.hdslb.com/bfs/new_dyn/26166ed2f7a96e68205308ed6904aadf8629868.png">
 <meta property="og:image" content="https://i0.hdslb.com/bfs/new_dyn/eb145f7c198d151ed496d9b9373c386c8629868.png">
 <meta property="og:image" content="https://i0.hdslb.com/bfs/new_dyn/fb6dabf409fdbf647d8b5f414620d77c8629868.png">
 <meta property="article:published_time" content="2023-07-08T15:00:51.000Z">
-<meta property="article:modified_time" content="2026-10-07T15:38:03.932Z">
+<meta property="article:modified_time" content="2026-10-09T13:49:58.360Z">
 <meta property="article:author" content="Qfwfq">
 <meta property="article:tag" content="Windows">
 <meta property="article:tag" content="Archeology">
@@ -237,7 +237,7 @@ mjx-container[display="true"] + br {
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">【电子垃圾场】关于PIF文件的一些事实</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.1.</span> <span class="toc-text">0x00</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.2.</span> <span class="toc-text">0x01</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.3.</span> <span class="toc-text">0x02</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.4.</span> <span class="toc-text">0x03</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.5.</span> <span class="toc-text">0x04</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.6.</span> <span class="toc-text">0x05</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.7.</span> <span class="toc-text">0x06</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">0x00</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">0x01</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">0x02</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">0x03</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">5.</span> <span class="toc-text">0x04</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">6.</span> <span class="toc-text">0x05</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">7.</span> <span class="toc-text">0x06</span></a></li></ol>
       </div>
     
   </span>
@@ -288,7 +288,6 @@ mjx-container[display="true"] + br {
 
   <div class="content e-content" itemprop="articleBody">
     <meta name="referrer" content="no-referrer"/>
-<h1>【电子垃圾场】关于PIF文件的一些事实</h1>
 <blockquote>
 <p><em>即使是不成功的产品也会留下痕迹</em></p>
 </blockquote>
@@ -397,7 +396,7 @@ mjx-container[display="true"] + br {
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">【电子垃圾场】关于PIF文件的一些事实</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.1.</span> <span class="toc-text">0x00</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.2.</span> <span class="toc-text">0x01</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.3.</span> <span class="toc-text">0x02</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.4.</span> <span class="toc-text">0x03</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.5.</span> <span class="toc-text">0x04</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.6.</span> <span class="toc-text">0x05</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.7.</span> <span class="toc-text">0x06</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">0x00</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">0x01</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">0x02</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">0x03</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">5.</span> <span class="toc-text">0x04</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">6.</span> <span class="toc-text">0x05</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">7.</span> <span class="toc-text">0x06</span></a></li></ol>
       </div>
     
 
