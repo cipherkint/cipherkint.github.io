@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="windows 2000系统的一个0day漏洞的发现过程 0x00-前言 其实安装这个系统的本意是折腾老游戏，装点菠萝1之类的玩玩，结果找到了个漏洞，不错。 这个漏洞位于cmd.exe，是一个缓冲区溢出漏洞，我在公开资料上没有查询到该漏洞的任何信息，也不知道是我没查到，还是确实没人公开它，如果有谁查到这个漏洞的信息了记得提醒我一下（……） 实验环境 Microsoft Windows 2000">
+    <meta name="description" content="0x00-前言 其实安装这个系统的本意是折腾老游戏，装点菠萝1之类的玩玩，结果找到了个漏洞，不错。 这个漏洞位于cmd.exe，是一个缓冲区溢出漏洞，我在公开资料上没有查询到该漏洞的任何信息，也不知道是我没查到，还是确实没人公开它，如果有谁查到这个漏洞的信息了记得提醒我一下（……） 实验环境 Microsoft Windows 2000 5.00.2195 Service Pack 4 用到的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="windows 2000系统的一个0day漏洞的发现过程">
 <meta property="og:url" content="https://qfwfq.top/2023/02/10/win2000-vul/index.html">
 <meta property="og:site_name" content="Qfwfq&#39;s Blog">
-<meta property="og:description" content="windows 2000系统的一个0day漏洞的发现过程 0x00-前言 其实安装这个系统的本意是折腾老游戏，装点菠萝1之类的玩玩，结果找到了个漏洞，不错。 这个漏洞位于cmd.exe，是一个缓冲区溢出漏洞，我在公开资料上没有查询到该漏洞的任何信息，也不知道是我没查到，还是确实没人公开它，如果有谁查到这个漏洞的信息了记得提醒我一下（……） 实验环境 Microsoft Windows 2000">
+<meta property="og:description" content="0x00-前言 其实安装这个系统的本意是折腾老游戏，装点菠萝1之类的玩玩，结果找到了个漏洞，不错。 这个漏洞位于cmd.exe，是一个缓冲区溢出漏洞，我在公开资料上没有查询到该漏洞的任何信息，也不知道是我没查到，还是确实没人公开它，如果有谁查到这个漏洞的信息了记得提醒我一下（……） 实验环境 Microsoft Windows 2000 5.00.2195 Service Pack 4 用到的">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://i0.hdslb.com/bfs/new_dyn/731962d1f3077b34f3996a322511e75f8629868.gif">
 <meta property="og:image" content="https://i0.hdslb.com/bfs/new_dyn/922e300717addbad556ebc7be82743498629868.png">
@@ -30,10 +30,10 @@
 <meta property="og:image" content="https://i0.hdslb.com/bfs/new_dyn/64890a05f8044436bcccf156fa91e17f8629868.png">
 <meta property="og:image" content="https://i0.hdslb.com/bfs/new_dyn/46080be4f6d7fdfdb10e8df01c0759478629868.gif">
 <meta property="article:published_time" content="2023-02-10T08:00:41.000Z">
-<meta property="article:modified_time" content="2023-02-10T09:13:24.000Z">
+<meta property="article:modified_time" content="2026-10-09T13:52:12.819Z">
 <meta property="article:author" content="Qfwfq">
-<meta property="article:tag" content="Windows">
 <meta property="article:tag" content="Vulnerability">
+<meta property="article:tag" content="Windows">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://i0.hdslb.com/bfs/new_dyn/731962d1f3077b34f3996a322511e75f8629868.gif">
     
@@ -250,7 +250,7 @@ mjx-container[display="true"] + br {
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">windows 2000系统的一个0day漏洞的发现过程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.1.</span> <span class="toc-text">0x00-前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.2.</span> <span class="toc-text">0x01-漏洞简述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.3.</span> <span class="toc-text">0x02-cmd.exe的漏洞发现过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.4.</span> <span class="toc-text">0x03-缓冲区溢出漏洞的成因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.5.</span> <span class="toc-text">0x04-Windows XP SP3系统以及后续的Windows系统中是否存在该漏洞?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.6.</span> <span class="toc-text">0x05-shellcode</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.1.</span> <span class="toc-text">0x00-前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.2.</span> <span class="toc-text">0x01-漏洞简述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.3.</span> <span class="toc-text">0x02-cmd.exe的漏洞发现过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.4.</span> <span class="toc-text">0x03-缓冲区溢出漏洞的成因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.5.</span> <span class="toc-text">0x04-Windows XP SP3系统以及后续的Windows系统中是否存在该漏洞?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.6.</span> <span class="toc-text">0x05-shellcode</span></a></li></ol></li></ol>
       </div>
     
   </span>
@@ -301,7 +301,7 @@ mjx-container[display="true"] + br {
 
   <div class="content e-content" itemprop="articleBody">
     <meta name="referrer" content="no-referrer"/>
-<h1>windows 2000系统的一个0day漏洞的发现过程</h1>
+<h1></h1>
 <h2>0x00-前言</h2>
 <p>其实安装这个系统的本意是折腾老游戏，装点菠萝1之类的玩玩，结果找到了个漏洞，不错。</p>
 <p>这个漏洞位于cmd.exe，是一个缓冲区溢出漏洞，我在公开资料上没有查询到该漏洞的任何信息，也不知道是我没查到，还是确实没人公开它，如果有谁查到这个漏洞的信息了记得提醒我一下（……）</p>
@@ -341,16 +341,16 @@ mjx-container[display="true"] + br {
 <p><img src="https://i0.hdslb.com/bfs/new_dyn/687df25fcea9806f3373e9c2296475358629868.png" alt=""></p>
 <p>Windows2000的FindNextFileW函数在对刚好为260个宽字符的长文件名进行的遍历时，获得数据存储在类型为WIN32_FIND_DATA的结构中，该结构体的定义如下：</p>
 <pre class=" language-language-c"><code class="language-language-c">typedef struct _WIN32_FIND_DATA &#123;
-	DWORD dwFileAttributes; //文件属性
-	FILETIME ftCreationTime; // 文件创建时间
-	FILETIME ftLastAccessTime; // 文件最后一次访问时间
-	FILETIME ftLastWriteTime; // 文件最后一次修改时间
-	DWORD nFileSizeHigh; // 文件长度高32位
-	DWORD nFileSizeLow; // 文件长度低32位
-	DWORD dwReserved0; // 系统保留
-	DWORD dwReserved1; // 系统保留
-	TCHAR cFileName[ MAX_PATH ]; // 长文件名
-	TCHAR cAlternateFileName[ 14 ]; // 8.3格式文件名
+    DWORD dwFileAttributes; //文件属性
+    FILETIME ftCreationTime; // 文件创建时间
+    FILETIME ftLastAccessTime; // 文件最后一次访问时间
+    FILETIME ftLastWriteTime; // 文件最后一次修改时间
+    DWORD nFileSizeHigh; // 文件长度高32位
+    DWORD nFileSizeLow; // 文件长度低32位
+    DWORD dwReserved0; // 系统保留
+    DWORD dwReserved1; // 系统保留
+    TCHAR cFileName[ MAX_PATH ]; // 长文件名
+    TCHAR cAlternateFileName[ 14 ]; // 8.3格式文件名
 &#125; WIN32_FIND_DATA, *PWIN32_FIND_DATA;
 </code></pre>
 <p>在windows系统中常常把MAX_PATH宏定义为260，cmd.exe通过FindNextFileW函数遍历得到长文件名和短文件名在内存空间中相邻存储，当磁盘上的长文件名数据刚好260个宽字符时，造成了两个字符串的合并，如下图：</p>
@@ -398,7 +398,7 @@ mjx-container[display="true"] + br {
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">windows 2000系统的一个0day漏洞的发现过程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.1.</span> <span class="toc-text">0x00-前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.2.</span> <span class="toc-text">0x01-漏洞简述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.3.</span> <span class="toc-text">0x02-cmd.exe的漏洞发现过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.4.</span> <span class="toc-text">0x03-缓冲区溢出漏洞的成因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.5.</span> <span class="toc-text">0x04-Windows XP SP3系统以及后续的Windows系统中是否存在该漏洞?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.6.</span> <span class="toc-text">0x05-shellcode</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.1.</span> <span class="toc-text">0x00-前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.2.</span> <span class="toc-text">0x01-漏洞简述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.3.</span> <span class="toc-text">0x02-cmd.exe的漏洞发现过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.4.</span> <span class="toc-text">0x03-缓冲区溢出漏洞的成因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.5.</span> <span class="toc-text">0x04-Windows XP SP3系统以及后续的Windows系统中是否存在该漏洞?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.6.</span> <span class="toc-text">0x05-shellcode</span></a></li></ol></li></ol>
       </div>
     
 

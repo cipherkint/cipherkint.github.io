@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="Windows 2000 系统资源管理器的一个漏洞 0x00-前言 这似乎又是一个0 day漏洞（？） 这个漏洞与pif文件有关，是我在研究pif文件的时候发现的，关于pif文件的一些资料我整理到自己的博客里了：https:&#x2F;&#x2F;qfwfq.top&#x2F;2023&#x2F;07&#x2F;08&#x2F;some-fact-about-pif&#x2F; 后面会用到里面的一些内容。 实验环境 Microsoft Windows 2000 5">
+    <meta name="description" content="0x00-前言 这似乎又是一个0 day漏洞（？） 这个漏洞与pif文件有关，是我在研究pif文件的时候发现的，关于pif文件的一些资料我整理到自己的博客里了：https:&#x2F;&#x2F;qfwfq.top&#x2F;2023&#x2F;07&#x2F;08&#x2F;some-fact-about-pif&#x2F; 后面会用到里面的一些内容。 实验环境 Microsoft Windows 2000 5.00.2195 Service Pack 4 用到">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Windows 2000 系统资源管理器的一个漏洞">
 <meta property="og:url" content="https://qfwfq.top/2023/08/02/a-win2000-explorer-vul-about-pif/index.html">
 <meta property="og:site_name" content="Qfwfq&#39;s Blog">
-<meta property="og:description" content="Windows 2000 系统资源管理器的一个漏洞 0x00-前言 这似乎又是一个0 day漏洞（？） 这个漏洞与pif文件有关，是我在研究pif文件的时候发现的，关于pif文件的一些资料我整理到自己的博客里了：https:&#x2F;&#x2F;qfwfq.top&#x2F;2023&#x2F;07&#x2F;08&#x2F;some-fact-about-pif&#x2F; 后面会用到里面的一些内容。 实验环境 Microsoft Windows 2000 5">
+<meta property="og:description" content="0x00-前言 这似乎又是一个0 day漏洞（？） 这个漏洞与pif文件有关，是我在研究pif文件的时候发现的，关于pif文件的一些资料我整理到自己的博客里了：https:&#x2F;&#x2F;qfwfq.top&#x2F;2023&#x2F;07&#x2F;08&#x2F;some-fact-about-pif&#x2F; 后面会用到里面的一些内容。 实验环境 Microsoft Windows 2000 5.00.2195 Service Pack 4 用到">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://i0.hdslb.com/bfs/new_dyn/62553f558e336ebf68cd7525a7a5d1758629868.png">
 <meta property="og:image" content="https://i0.hdslb.com/bfs/new_dyn/c8a50fc854f18a6d1e4ee5b4a014bda38629868.png">
@@ -30,10 +30,10 @@
 <meta property="og:image" content="https://i0.hdslb.com/bfs/new_dyn/418252843aa1fff9e04f2f92da27718f8629868.gif">
 <meta property="og:image" content="https://i0.hdslb.com/bfs/new_dyn/b5ba6d33214e11e2a6e107a86a36e49f8629868.png">
 <meta property="article:published_time" content="2023-08-02T07:21:41.000Z">
-<meta property="article:modified_time" content="2023-08-02T07:41:50.000Z">
+<meta property="article:modified_time" content="2026-10-09T13:52:04.782Z">
 <meta property="article:author" content="Qfwfq">
-<meta property="article:tag" content="Windows">
 <meta property="article:tag" content="Vulnerability">
+<meta property="article:tag" content="Windows">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://i0.hdslb.com/bfs/new_dyn/62553f558e336ebf68cd7525a7a5d1758629868.png">
     
@@ -248,7 +248,7 @@ mjx-container[display="true"] + br {
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">Windows 2000 系统资源管理器的一个漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.1.</span> <span class="toc-text">0x00-前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.2.</span> <span class="toc-text">0x01-漏洞简述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.3.</span> <span class="toc-text">0x02-对崩溃的逆向跟踪，找到溢出点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.4.</span> <span class="toc-text">0x03-不太成功的漏洞利用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.5.</span> <span class="toc-text">0x04-Windows XP及其他版本系统里存在该漏洞吗</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">0x00-前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">0x01-漏洞简述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">0x02-对崩溃的逆向跟踪，找到溢出点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">0x03-不太成功的漏洞利用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">5.</span> <span class="toc-text">0x04-Windows XP及其他版本系统里存在该漏洞吗</span></a></li></ol>
       </div>
     
   </span>
@@ -299,7 +299,6 @@ mjx-container[display="true"] + br {
 
   <div class="content e-content" itemprop="articleBody">
     <meta name="referrer" content="no-referrer">
-<h1>Windows 2000 系统资源管理器的一个漏洞</h1>
 <h2>0x00-前言</h2>
 <p><em>这似乎又是一个0 day漏洞（？）</em></p>
 <p>这个漏洞与pif文件有关，是我在研究pif文件的时候发现的，关于pif文件的一些资料我整理到自己的博客里了：<a href="https://qfwfq.top/2023/07/08/some-fact-about-pif/">https://qfwfq.top/2023/07/08/some-fact-about-pif/</a>
@@ -439,7 +438,7 @@ mjx-container[display="true"] + br {
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">Windows 2000 系统资源管理器的一个漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.1.</span> <span class="toc-text">0x00-前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.2.</span> <span class="toc-text">0x01-漏洞简述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.3.</span> <span class="toc-text">0x02-对崩溃的逆向跟踪，找到溢出点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.4.</span> <span class="toc-text">0x03-不太成功的漏洞利用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.5.</span> <span class="toc-text">0x04-Windows XP及其他版本系统里存在该漏洞吗</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">0x00-前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">0x01-漏洞简述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">0x02-对崩溃的逆向跟踪，找到溢出点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">0x03-不太成功的漏洞利用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">5.</span> <span class="toc-text">0x04-Windows XP及其他版本系统里存在该漏洞吗</span></a></li></ol>
       </div>
     
 

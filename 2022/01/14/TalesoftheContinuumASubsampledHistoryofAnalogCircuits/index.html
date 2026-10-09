@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="翻译：关于连续性的故事——模拟电路的*次采样*历史(1) 写在前面 翻译本文意在为自己模拟电子技术的学习画上一个暂时的句号，一个学期的模电课程极其敷衍，连“了解学科的基本框架”这一目的都没能做到（当然我自己也没好好学，精力有限嘛…），而放弃这一有趣的学科又难免可惜，于是我决定通过翻译这篇技术性相对较少、以学科发展的历史为基本脉络的文章来作为自己对模拟电子技术的学习的开端与暂时的终结，将来有时间的">
+    <meta name="description" content="写在前面 翻译本文意在为自己模拟电子技术的学习画上一个暂时的句号，一个学期的模电课程极其敷衍，连“了解学科的基本框架”这一目的都没能做到（当然我自己也没好好学，精力有限嘛…），而放弃这一有趣的学科又难免可惜，于是我决定通过翻译这篇技术性相对较少、以学科发展的历史为基本脉络的文章来作为自己对模拟电子技术的学习的开端与暂时的终结，将来有时间的话也许我还会仔细学它，谁知道呢。 再说说我对这一学科的理">
 <meta property="og:type" content="article">
 <meta property="og:title" content="翻译：关于连续性的故事——模拟电路的*次采样*历史(1)">
 <meta property="og:url" content="https://qfwfq.top/2022/01/14/TalesoftheContinuumASubsampledHistoryofAnalogCircuits/index.html">
 <meta property="og:site_name" content="Qfwfq&#39;s Blog">
-<meta property="og:description" content="翻译：关于连续性的故事——模拟电路的*次采样*历史(1) 写在前面 翻译本文意在为自己模拟电子技术的学习画上一个暂时的句号，一个学期的模电课程极其敷衍，连“了解学科的基本框架”这一目的都没能做到（当然我自己也没好好学，精力有限嘛…），而放弃这一有趣的学科又难免可惜，于是我决定通过翻译这篇技术性相对较少、以学科发展的历史为基本脉络的文章来作为自己对模拟电子技术的学习的开端与暂时的终结，将来有时间的">
+<meta property="og:description" content="写在前面 翻译本文意在为自己模拟电子技术的学习画上一个暂时的句号，一个学期的模电课程极其敷衍，连“了解学科的基本框架”这一目的都没能做到（当然我自己也没好好学，精力有限嘛…），而放弃这一有趣的学科又难免可惜，于是我决定通过翻译这篇技术性相对较少、以学科发展的历史为基本脉络的文章来作为自己对模拟电子技术的学习的开端与暂时的终结，将来有时间的话也许我还会仔细学它，谁知道呢。 再说说我对这一学科的理">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://i0.hdslb.com/bfs/album/30f19e286105d100445f8f5f9bbbccc8cd0243ae.png">
 <meta property="og:image" content="https://i0.hdslb.com/bfs/album/3a6c2f8e621999ffbc114b7382a4546f8773dc5b.png">
@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://i0.hdslb.com/bfs/album/0d4bbc1e04a47e9442043c20133ce7c341e3eade.png">
 <meta property="og:image" content="https://i0.hdslb.com/bfs/album/56b953fe0fb118462f6e4f6f6644b85945b522cd.png@518w.webp">
 <meta property="article:published_time" content="2022-01-14T03:40:07.000Z">
-<meta property="article:modified_time" content="2023-02-10T09:11:20.000Z">
+<meta property="article:modified_time" content="2026-10-09T13:52:27.836Z">
 <meta property="article:author" content="Qfwfq">
 <meta property="article:tag" content="Analog-Circuits">
 <meta name="twitter:card" content="summary">
@@ -240,7 +240,7 @@ mjx-container[display="true"] + br {
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">翻译：关于连续性的故事——模拟电路的*次采样*历史(1)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.2.</span> <span class="toc-text">序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.3.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.4.</span> <span class="toc-text">计算和控制中的模拟电子技术</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.5.</span> <span class="toc-text">模拟集成电路之父：Robert J. Widlar</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.6.</span> <span class="toc-text">Fairchild </span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#mu-A709-1965"><span class="toc-number">1.6.1.</span> <span class="toc-text"> (1965)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.7.</span> <span class="toc-text"> (1967) 与(1968)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.8.</span> <span class="toc-text">“实用”的胜利： (1968)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.9.</span> <span class="toc-text">对精密度的追求：OP-07 (1975)</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.2.</span> <span class="toc-text">序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.3.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.4.</span> <span class="toc-text">计算和控制中的模拟电子技术</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.5.</span> <span class="toc-text">模拟集成电路之父：Robert J. Widlar</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.6.</span> <span class="toc-text">Fairchild </span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#mu-A709-1965"><span class="toc-number">1.6.1.</span> <span class="toc-text"> (1965)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.7.</span> <span class="toc-text"> (1967) 与(1968)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.8.</span> <span class="toc-text">“实用”的胜利： (1968)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.9.</span> <span class="toc-text">对精密度的追求：OP-07 (1975)</span></a></li></ol></li></ol>
       </div>
     
   </span>
@@ -291,7 +291,7 @@ mjx-container[display="true"] + br {
 
   <div class="content e-content" itemprop="articleBody">
     <meta name="referrer" content="no-referrer">
-<h1>翻译：关于连续性的故事——模拟电路的*次采样*历史(1)</h1>
+<h1></h1>
 <h2>写在前面</h2>
 <p>翻译本文意在为自己模拟电子技术的学习画上一个暂时的句号，一个学期的模电课程极其敷衍，连“了解学科的基本框架”这一目的都没能做到（当然我自己也没好好学，精力有限嘛…），而放弃这一有趣的学科又难免可惜，于是我决定通过翻译这篇技术性相对较少、以学科发展的历史为基本脉络的文章来作为自己对模拟电子技术的学习的开端与暂时的终结，将来有时间的话也许我还会仔细学它，谁知道呢。</p>
 <p>再说说我对这一学科的理解，它是一门纯技术的学科，也就是说，它不比作为它的基础的数学，物理等学科有更多知识性的内容，它只是关注怎么组织这些知识，来设计出合适的工具满足生产生活的需要，所以学习它不能用那种归根溯源的思维。我把这句话放在这里提醒自己， 不然我永远会把工科学成理科。</p>
@@ -403,7 +403,7 @@ mjx-container[display="true"] + br {
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">翻译：关于连续性的故事——模拟电路的*次采样*历史(1)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.2.</span> <span class="toc-text">序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.3.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.4.</span> <span class="toc-text">计算和控制中的模拟电子技术</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.5.</span> <span class="toc-text">模拟集成电路之父：Robert J. Widlar</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.6.</span> <span class="toc-text">Fairchild </span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#mu-A709-1965"><span class="toc-number">1.6.1.</span> <span class="toc-text"> (1965)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.7.</span> <span class="toc-text"> (1967) 与(1968)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.8.</span> <span class="toc-text">“实用”的胜利： (1968)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.9.</span> <span class="toc-text">对精密度的追求：OP-07 (1975)</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.2.</span> <span class="toc-text">序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.3.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.4.</span> <span class="toc-text">计算和控制中的模拟电子技术</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.5.</span> <span class="toc-text">模拟集成电路之父：Robert J. Widlar</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.6.</span> <span class="toc-text">Fairchild </span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#mu-A709-1965"><span class="toc-number">1.6.1.</span> <span class="toc-text"> (1965)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.7.</span> <span class="toc-text"> (1967) 与(1968)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.8.</span> <span class="toc-text">“实用”的胜利： (1968)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.9.</span> <span class="toc-text">对精密度的追求：OP-07 (1975)</span></a></li></ol></li></ol>
       </div>
     
 

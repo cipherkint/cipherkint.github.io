@@ -6,17 +6,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="旅行笔记：费马小定理（素性测试）（1） 0.前言 是这样的，前一个月回老家了，没带电脑，只带了游戏机和几本乱七八糟的书。 在老家大部分时间都在打MHR，但是书姑且也翻了翻，就随便记录了一些东西。 “旅行笔记”系列是对出门在外期间的纸质笔记的整理，不仅仅是这次回老家，也许以后的也会放到blog上。 因为是随便记的，所以什么都会有，也比较乱。 1.费马小定理 如果是一个素数，那么对于任意的  ，有">
+    <meta name="description" content="0.前言 是这样的，前一个月回老家了，没带电脑，只带了游戏机和几本乱七八糟的书。 在老家大部分时间都在打MHR，但是书姑且也翻了翻，就随便记录了一些东西。 “旅行笔记”系列是对出门在外期间的纸质笔记的整理，不仅仅是这次回老家，也许以后的也会放到blog上。 因为是随便记的，所以什么都会有，也比较乱。 1.费马小定理 如果是一个素数，那么对于任意的  ，有    比如，对于  而言： 之后可能得到">
 <meta property="og:type" content="article">
 <meta property="og:title" content="旅行笔记：费马小定理（素性测试）（1）">
 <meta property="og:url" content="https://qfwfq.top/2022/07/30/journey_notes_1/index.html">
 <meta property="og:site_name" content="Qfwfq&#39;s Blog">
-<meta property="og:description" content="旅行笔记：费马小定理（素性测试）（1） 0.前言 是这样的，前一个月回老家了，没带电脑，只带了游戏机和几本乱七八糟的书。 在老家大部分时间都在打MHR，但是书姑且也翻了翻，就随便记录了一些东西。 “旅行笔记”系列是对出门在外期间的纸质笔记的整理，不仅仅是这次回老家，也许以后的也会放到blog上。 因为是随便记的，所以什么都会有，也比较乱。 1.费马小定理 如果是一个素数，那么对于任意的  ，有">
+<meta property="og:description" content="0.前言 是这样的，前一个月回老家了，没带电脑，只带了游戏机和几本乱七八糟的书。 在老家大部分时间都在打MHR，但是书姑且也翻了翻，就随便记录了一些东西。 “旅行笔记”系列是对出门在外期间的纸质笔记的整理，不仅仅是这次回老家，也许以后的也会放到blog上。 因为是随便记的，所以什么都会有，也比较乱。 1.费马小定理 如果是一个素数，那么对于任意的  ，有    比如，对于  而言： 之后可能得到">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://i0.hdslb.com/bfs/new_dyn/66377e3333ecebf00913a96ae16b371e8629868.png">
 <meta property="og:image" content="https://i0.hdslb.com/bfs/new_dyn/5ff1ec608a484b36429f75a25d09f8628629868.png">
 <meta property="article:published_time" content="2022-07-30T06:14:41.000Z">
-<meta property="article:modified_time" content="2023-02-10T09:09:30.000Z">
+<meta property="article:modified_time" content="2026-10-09T13:53:06.619Z">
 <meta property="article:author" content="Qfwfq">
 <meta property="article:tag" content="Math">
 <meta name="twitter:card" content="summary">
@@ -235,7 +235,7 @@ mjx-container[display="true"] + br {
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">旅行笔记：费马小定理（素性测试）（1）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.1.</span> <span class="toc-text">0.前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.2.</span> <span class="toc-text">1.费马小定理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.3.</span> <span class="toc-text">2.Carmichael数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.4.</span> <span class="toc-text">3.一个引理</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">0.前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">1.费马小定理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">2.Carmichael数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">3.一个引理</span></a></li></ol>
       </div>
     
   </span>
@@ -286,7 +286,6 @@ mjx-container[display="true"] + br {
 
   <div class="content e-content" itemprop="articleBody">
     <meta name="referrer" content="no-referrer">
-<h1>旅行笔记：费马小定理（素性测试）（1）</h1>
 <h2>0.前言</h2>
 <p>是这样的，前一个月回老家了，没带电脑，只带了游戏机和几本乱七八糟的书。</p>
 <p>在老家大部分时间都在打MHR，但是书姑且也翻了翻，就随便记录了一些东西。</p>
@@ -344,7 +343,7 @@ mjx-container[display="true"] + br {
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">旅行笔记：费马小定理（素性测试）（1）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.1.</span> <span class="toc-text">0.前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.2.</span> <span class="toc-text">1.费马小定理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.3.</span> <span class="toc-text">2.Carmichael数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.4.</span> <span class="toc-text">3.一个引理</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">0.前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">1.费马小定理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">2.Carmichael数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">3.一个引理</span></a></li></ol>
       </div>
     
 
